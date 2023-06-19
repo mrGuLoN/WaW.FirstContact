@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class CameraController : MonoBehaviour
 {
-    [FormerlySerializedAs("_player")] public Transform player;
+    public Transform player;
     private Transform _thisTR;
     
     void Start()
@@ -16,6 +14,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (player!=null)
         _thisTR.position = new Vector3(player.position.x, _thisTR.position.y, player.position.z);
     }
 }

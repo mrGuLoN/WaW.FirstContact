@@ -25,7 +25,7 @@ namespace Player.StateMachine
 
         
 
-        private void Awake()
+        private void Start()
         
         {
             if (!isLocalPlayer) return;
@@ -34,15 +34,15 @@ namespace Player.StateMachine
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
             thisTransform = GetComponent<Transform>();
+            Camera.main.GetComponent<CameraController>().player = thisTransform;
+            movementJoyStick = CanvasController.instance.move;
+            fireJoyStick = CanvasController.instance.fire;
+            _use = CanvasController.instance.useButton;
+            _use.onClick.AddListener(Use);
+            ChangeState(nonGunState);
         }
 
-        private void Start()
-        {
-            if (!isLocalPlayer) return;
-            ChangeState(nonGunState);
-            _use.onClick.AddListener(Use);
-            Camera.main.GetComponent<CameraController>().player = thisTransform;
-        }
+        
 
         public bool IsWallOnWay(Vector3 direction)
         {

@@ -375,6 +375,8 @@ GameObject:
   - component: {fileID: 8299454720780916430}
   - component: {fileID: 2394716237317687461}
   - component: {fileID: 2318731809407188392}
+  - component: {fileID: 6081477101857608959}
+  - component: {fileID: 444216717947310217}
   m_Layer: 6
   m_Name: Stage4
   m_TagString: Untagged
@@ -446,6 +448,56 @@ MonoBehaviour:
   - {fileID: 4086815426246770407}
   - {fileID: 2225305435699610389}
   - {fileID: 5591581278870881395}
+--- !u!114 &6081477101857608959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944686509795303289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3037898052
+  serverOnly: 1
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &444216717947310217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7944686509795303289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 8299454720780916430}
+  clientAuthority: 0
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
 --- !u!1 &8974688700315787073
 GameObject:
   m_ObjectHideFlags: 0

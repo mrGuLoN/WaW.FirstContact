@@ -23,6 +23,7 @@ namespace Player.StateMachine.States
         public override void UpdateLogic()
         {
             
+
         }
 
         public override void UpdatePhysics()

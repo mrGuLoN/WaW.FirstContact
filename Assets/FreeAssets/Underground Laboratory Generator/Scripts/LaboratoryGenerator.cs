@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class LaboratoryGenerator : MonoBehaviour
+public class LaboratoryGenerator : NetworkBehaviour
 {
     public bool GenerateOnStart = true;
     [Range(3, 100)]
@@ -15,7 +16,7 @@ public class LaboratoryGenerator : MonoBehaviour
 
     private void Start()
     {
-        if (GenerateOnStart) StartCoroutine(StartGeneration());
+        if (GenerateOnStart && isServer) StartCoroutine(StartGeneration());
     }
 
     IEnumerator StartGeneration()
