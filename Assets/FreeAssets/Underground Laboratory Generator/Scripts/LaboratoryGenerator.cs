@@ -6,23 +6,26 @@ using UnityEngine;
 public class LaboratoryGenerator : NetworkBehaviour
 {
     public bool GenerateOnStart = true;
-    [Range(3, 100)]
-    public int RoomCount = 9;
+    [Range(3, 100)] public int RoomCount = 9;
     public LayerMask CellLayer;
 
     public GameObject InsteadDoor;
     public GameObject[] DoorPrefabs;
     public Cell[] CellPrefabs;
-
+    
+   
     private void Start()
     {
         if (GenerateOnStart && isServer) StartCoroutine(StartGeneration());
     }
 
+    
     IEnumerator StartGeneration()
     {
         List<Transform> CreatedExits = new List<Transform>();
-        Cell StartRoom = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero, Quaternion.identity);
+        Cell StartRoom = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
+            Quaternion.identity);
+        NetworkServer.Spawn(StartRoom.gameObject);
         for (int i = 0; i < StartRoom.Exits.Length; i++) CreatedExits.Add(StartRoom.Exits[i].transform);
         StartRoom.TriggerBox.enabled = true;
 
@@ -31,8 +34,9 @@ public class LaboratoryGenerator : NetworkBehaviour
         {
             limit--;
 
-            Cell selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero, Quaternion.identity);
-
+            Cell selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
+                Quaternion.identity);
+            NetworkServer.Spawn(selectedPrefab.gameObject);
             int lim = 100;
             bool collided;
             Transform selectedExit;
@@ -56,15 +60,18 @@ public class LaboratoryGenerator : NetworkBehaviour
                 selectedPrefab.transform.position += shiftPosition; // выходы состыковались
 
                 // check
-                Vector3 center = selectedPrefab.transform.position + selectedPrefab.TriggerBox.center.z * selectedPrefab.transform.forward
-                    + selectedPrefab.TriggerBox.center.y * selectedPrefab.transform.up
-                    + selectedPrefab.TriggerBox.center.x * selectedPrefab.transform.right; // selectedPrefab.TriggerBox.center
+                Vector3 center =
+                    selectedPrefab.transform.position + selectedPrefab.TriggerBox.center.z *
+                                                      selectedPrefab.transform.forward
+                                                      + selectedPrefab.TriggerBox.center.y * selectedPrefab.transform.up
+                                                      + selectedPrefab.TriggerBox.center.x *
+                                                      selectedPrefab.transform
+                                                          .right; // selectedPrefab.TriggerBox.center
                 Vector3 size = selectedPrefab.TriggerBox.size / 2f; // half size
                 Quaternion rot = selectedPrefab.transform.localRotation;
                 collided = Physics.CheckBox(center, size, rot, CellLayer, QueryTriggerInteraction.Collide);
 
                 yield return new WaitForEndOfFrame();
-
             } while (collided && lim > 0);
 
             selectedPrefab.TriggerBox.enabled = true; // ВКЛЮЧИЛ
@@ -73,16 +80,23 @@ public class LaboratoryGenerator : NetworkBehaviour
             {
                 roomsLeft--;
 
-                for (int j = 0; j < selectedPrefab.Exits.Length; j++) CreatedExits.Add(selectedPrefab.Exits[j].transform);
+                for (int j = 0; j < selectedPrefab.Exits.Length; j++)
+                    CreatedExits.Add(selectedPrefab.Exits[j].transform);
 
                 CreatedExits.Remove(createdExit);
                 CreatedExits.Remove(selectedExit);
 
-                Instantiate(DoorPrefabs[Random.Range(0, DoorPrefabs.Length)], createdExit.transform.position, createdExit.transform.rotation);
+                GameObject door = Instantiate(DoorPrefabs[Random.Range(0, DoorPrefabs.Length)],
+                    createdExit.transform.position, createdExit.transform.rotation);
+                NetworkServer.Spawn(door);
                 DestroyImmediate(createdExit.gameObject);
                 DestroyImmediate(selectedExit.gameObject);
             }
-            else DestroyImmediate(selectedPrefab.gameObject);
+            else
+            {
+                NetworkServer.Destroy(selectedPrefab.gameObject);
+                DestroyImmediate(selectedPrefab.gameObject);
+            }
 
             yield return new WaitForEndOfFrame();
         }
@@ -90,7 +104,8 @@ public class LaboratoryGenerator : NetworkBehaviour
         // instead doors
         for (int i = 0; i < CreatedExits.Count; i++)
         {
-            Instantiate(InsteadDoor, CreatedExits[i].position, CreatedExits[i].rotation);
+            GameObject door = Instantiate(InsteadDoor, CreatedExits[i].position, CreatedExits[i].rotation);
+            NetworkServer.Spawn(door);
             DestroyImmediate(CreatedExits[i].gameObject);
         }
 

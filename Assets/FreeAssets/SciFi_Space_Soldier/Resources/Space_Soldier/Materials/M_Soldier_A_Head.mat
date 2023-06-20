@@ -8,14 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Soldier_A_Head
-  m_Shader: {fileID: 10704, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: b109fe30baa6ae24593d0da3972e0bb6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
+  - _EMISSION
   - _METALLICGLOSSMAP
   - _NORMALMAP
-  m_LightmapFlags: 5
+  m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -99,16 +100,20 @@ Material:
     - _DstBlend: 0
     - _EmissionFactor: 2
     - _EmissiveFactor: 1
+    - _GlossMapScale: 1
     - _Glossiness: 0.9
+    - _GlossyReflections: 1
     - _Metallic: 1
     - _MetalnessFactor: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Outline: 0
     - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularColorized: 0.826
     - _SpecularFactor: 1
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _UVWorldScale: 1
@@ -118,7 +123,7 @@ Material:
     - _Color1: {r: 0.42409173, g: 0.57760227, b: 0.7794118, a: 1}
     - _Color2: {r: 0.33823532, g: 0.677188, b: 1, a: 1}
     - _DamageColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 0.8924949, b: 0.6102941, a: 1}
+    - _EmissionColor: {r: 0.48745823, g: 2, b: 0, a: 1}
     - _EmissiveColor: {r: 1, g: 1, b: 1, a: 1}
     - _MaskedColorA: {r: 1, g: 0, b: 0, a: 1}
     - _MaskedColorB: {r: 0, g: 1, b: 0, a: 1}
