@@ -8,14 +8,15 @@ public class LaboratoryGenerator : NetworkBehaviour
     public bool GenerateOnStart = true;
     [Range(3, 100)] public int RoomCount = 9;
     public LayerMask CellLayer;
-
+    public int arenaInt;
     public GameObject InsteadDoor;
     public GameObject[] DoorPrefabs;
     public Cell[] CellPrefabs;
-    
+    public Cell[] CellArena;
    
     private void Start()
     {
+        if (arenaInt == 0) arenaInt = 3;
         if (GenerateOnStart && isServer) StartCoroutine(StartGeneration());
     }
 
@@ -33,9 +34,20 @@ public class LaboratoryGenerator : NetworkBehaviour
         while (limit > 0 && roomsLeft > 0)
         {
             limit--;
-
-            Cell selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
-                Quaternion.identity);
+            int firstInt = roomsLeft/arenaInt;
+            int checedInt = roomsLeft * firstInt - roomsLeft;
+            Debug.Log(firstInt +" / " + checedInt);
+            Cell selectedPrefab = null;
+            if (roomsLeft != 1 && checedInt>0)
+            {
+                selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
+                    Quaternion.identity);
+            }
+            else
+            {
+                selectedPrefab = Instantiate(CellArena[Random.Range(0, CellArena.Length)], Vector3.zero,
+                    Quaternion.identity);
+            }
             NetworkServer.Spawn(selectedPrefab.gameObject);
             int lim = 100;
             bool collided;

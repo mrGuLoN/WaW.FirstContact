@@ -161,7 +161,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   GenerateOnStart: 1
-  RoomCount: 10
+  RoomCount: 24
   CellLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -174,6 +174,8 @@ MonoBehaviour:
   - {fileID: 8925136044252266616, guid: 84125c83ce42047438813a3d6738ad5b, type: 3}
   - {fileID: 7626877238096513537, guid: cf1c009f13aedbb49b753c84093bee5a, type: 3}
   - {fileID: 2318731809407188392, guid: f5b2363688e63db4a982efd73d99fbaa, type: 3}
+  CellArena:
+  - {fileID: 6413157089275197997, guid: e64607c069b286b46ad72a07ff6e0395, type: 3}
 --- !u!4 &67465865
 Transform:
   m_ObjectHideFlags: 0
@@ -260,7 +262,7 @@ PrefabInstance:
     - target: {fileID: 2358268698887019862, guid: 1a96bd7fa71684c408efc8db854e1856,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2358268698887019862, guid: 1a96bd7fa71684c408efc8db854e1856,
         type: 3}
@@ -395,7 +397,7 @@ Transform:
   - {fileID: 606122226}
   - {fileID: 809790055}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &434289977
 GameObject:
@@ -463,7 +465,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &492664256
 GameObject:
