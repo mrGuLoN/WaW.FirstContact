@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class LaboratoryGenerator : NetworkBehaviour
 {
@@ -36,10 +34,11 @@ public class LaboratoryGenerator : NetworkBehaviour
         while (limit > 0 && roomsLeft > 0)
         {
             limit--;
-            int firstInt = (int)Math.Ceiling((decimal)roomsLeft/(decimal)arenaInt);
+            int firstInt = roomsLeft/arenaInt;
             int checedInt = roomsLeft * firstInt - roomsLeft;
+            Debug.Log(firstInt +" / " + checedInt);
             Cell selectedPrefab = null;
-            if (roomsLeft != 0 && checedInt>0)
+            if (roomsLeft != 1 && checedInt>0)
             {
                 selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
                     Quaternion.identity);

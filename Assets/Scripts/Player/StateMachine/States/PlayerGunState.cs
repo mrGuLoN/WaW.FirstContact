@@ -44,6 +44,7 @@ namespace Player.StateMachine.States
 
             if (_movementVector != Vector3.zero || _playerControllerSm.IsWallOnWay(_movementVector))
             {
+                _playerControllerSm.thisTransform.position += _movementVector.normalized * _speed * Time.deltaTime;
                 _playerControllerSm.characterController.Move(_movementVector.normalized * _speed * Time.deltaTime  + Vector3.down*10f);
                 _movementVector = _playerControllerSm.thisTransform.InverseTransformDirection(_movementVector);
                 _playerControllerSm.animator.SetFloat("InputX", _movementVector.x);

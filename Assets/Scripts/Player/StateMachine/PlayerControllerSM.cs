@@ -10,21 +10,20 @@ namespace Player.StateMachine
         public float nonGunSpeed, gunSpeed;
         public Joystick movementJoyStick;
         public Joystick fireJoyStick;
-        
+        public AbstractGunScripts firstGun;
 
+        [SerializeField] private LayerMask _stage;
+        [SerializeField] private Button _use; 
+        
 
         [HideInInspector] public PlayerNonGunState nonGunState;
         [HideInInspector] public PlayerGunState gunState;
         [HideInInspector] public CharacterController characterController;
         [HideInInspector] public Animator animator;
         [HideInInspector] public Transform thisTransform;
+        
 
-        [SerializeField] private AbstractGunScripts _gun;
-        [SerializeField] private Transform _gunInHandTransform;
-
-        private LayerMask _stage;
-        private Button _use;
-        private AbstractGunScripts _firstGun;
+        
 
         private void Start()
         
@@ -41,8 +40,6 @@ namespace Player.StateMachine
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
             ChangeState(nonGunState);
-            _firstGun = Instantiate(_gun, _gunInHandTransform);
-            animator.runtimeAnimatorController = _firstGun._gunController;
         }
 
         
@@ -54,10 +51,8 @@ namespace Player.StateMachine
 
         public void Fire()
         {
-            _firstGun.Fire();
+            firstGun.Fire();
         }
-        
-        
 
         protected override PlayerBaseState GetInitialState()
         {
