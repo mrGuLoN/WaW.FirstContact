@@ -13,7 +13,8 @@ namespace Player.StateMachine
         public AbstractGunScripts firstGun;
 
         [SerializeField] private LayerMask _stage;
-        [SerializeField] private Button _use; 
+        [SerializeField] private Button _use;
+        [SerializeField] private Transform _rightHandGunPoint;
         
 
         [HideInInspector] public PlayerNonGunState nonGunState;
@@ -39,6 +40,7 @@ namespace Player.StateMachine
             fireJoyStick = CanvasController.instance.fire;
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
+            firstGun = Instantiate(firstGun, _rightHandGunPoint);
             ChangeState(nonGunState);
         }
 
