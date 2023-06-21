@@ -8,5 +8,6 @@ public class RifleGun : AbstractGunScripts
     public override void Fire()
     {
         _splash.Play();
+        base.RespawnBullet(_firepointTransform);
     }
 }
