@@ -1,3 +1,5 @@
+using Mirror;
+using Player.StateMachine;
 using UnityEngine;
 
 public class PlayerHealth : AbstractHealth
@@ -11,6 +13,7 @@ public class PlayerHealth : AbstractHealth
     private Animator _animator;
     private Transform _thisTransform;
     private Vector3 _directionDamage;
+    private PlayerControllerSM _playerController;
 
     public override void Awake()
     {
@@ -19,6 +22,7 @@ public class PlayerHealth : AbstractHealth
 
     private void Start()
     {
+        _playerController = GetComponent<PlayerControllerSM>();
         _animator = GetComponent<Animator>();
         _thisTransform = GetComponent<Transform>();
         _currentHealth = _startHealth;
@@ -30,8 +34,11 @@ public class PlayerHealth : AbstractHealth
         var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
         blood.transform.forward = direction;
         _directionDamage = (point - _thisTransform.position).normalized;
+        NetworkServer.Spawn(blood);
         if (_currentHealth <= 0)
         {
+            _playerController.enabled = false;
+            _animator.enabled = false;
             base.RagdollOn();
             rb.AddForce(direction * damage);
         }

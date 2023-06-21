@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Mirror;
 using Player.StateMachine.States;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,8 +41,15 @@ namespace Player.StateMachine
             fireJoyStick = CanvasController.instance.fire;
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
-            firstGun = Instantiate(firstGun, _rightHandGunPoint);
+           RespawnGun();
             ChangeState(nonGunState);
+        }
+
+        [Command]
+        private void RespawnGun()
+        {
+            firstGun = Instantiate(firstGun, _rightHandGunPoint);
+            NetworkServer.Spawn(firstGun.gameObject);
         }
 
         

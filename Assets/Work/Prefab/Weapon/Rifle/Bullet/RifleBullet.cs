@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RifleGun : AbstractGunScripts
+public class RifleBullet : AbstractBullet
 {
     // Start is called before the first frame update
-    public override void Fire()
+    void Start()
     {
-        _splash.Play();
-        base.Fire();
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

@@ -2284,6 +2284,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetWorkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4561792435043363993, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7547926913926361920, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: m_RootOrder

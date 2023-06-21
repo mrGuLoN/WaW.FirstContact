@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using UnityEngine;
 
-public class AbstractHealth : MonoBehaviour
+public class AbstractHealth : NetworkBehaviour
 {
     [SerializeField] private LayerMask _damageLayer, _deadLayer;
    
@@ -26,7 +27,7 @@ public class AbstractHealth : MonoBehaviour
         {
             rigidbody.isKinematic = false;
             rigidbody.useGravity = true;
-            rigidbody.transform.gameObject.layer = _deadLayer;
+            rigidbody.transform.gameObject.layer = 9;
         }
     }
     
@@ -36,7 +37,7 @@ public class AbstractHealth : MonoBehaviour
         {
             rigidbody.isKinematic = true;
             rigidbody.useGravity = false;
-            rigidbody.transform.gameObject.layer = _damageLayer;
+            rigidbody.transform.gameObject.layer = 8;
         }
     }
 

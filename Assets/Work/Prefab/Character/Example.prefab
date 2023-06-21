@@ -365,14 +365,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383549163199063478}
-  m_LocalRotation: {x: -0.014781468, y: -0.064471595, z: -0.72291225, w: 0.6877666}
-  m_LocalPosition: {x: -0.16255379, y: 0.045957386, z: 0.029313013}
+  m_LocalRotation: {x: -0.051745083, y: -0.030480081, z: -0.72451234, w: 0.68664056}
+  m_LocalPosition: {x: -0.16406882, y: 0.04387102, z: 0.0077612917}
   m_LocalScale: {x: 1.0000001, y: 1.0000002, z: 1.0000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4004720112091960392}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: -6.52, y: -3.885, z: -92.633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1547413978825928590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1172,7 @@ GameObject:
   - component: {fileID: 2591746821646380917}
   - component: {fileID: 3337307974405672244}
   m_Layer: 0
-  m_Name: RifleGunPlayer
+  m_Name: Example
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1413,9 +1413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e91e6e0dc9b224a8308432ce68d64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   _damageLayer:
     serializedVersion: 2
     m_Bits: 256
