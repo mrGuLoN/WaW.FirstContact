@@ -39,8 +39,7 @@ public class PlayerHealth : AbstractHealth
         {
             _playerController.enabled = false;
             _animator.enabled = false;
-            base.RagdollOn();
-           //_animator.SetTrigger("Dead");
+            _animator.SetTrigger("Dead");
         }
     }
 

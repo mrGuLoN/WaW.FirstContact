@@ -24,7 +24,7 @@ public class AbstractGunScripts : NetworkBehaviour
         }
     }
 
-    [Command]
+    
     private void SpawnBullet()
     {
         var bullet = Instantiate(_bullet, _firePoint.position, quaternion.identity);

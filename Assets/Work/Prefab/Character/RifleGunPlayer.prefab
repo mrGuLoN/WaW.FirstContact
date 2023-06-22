@@ -1336,7 +1336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   clientAuthority: 1
@@ -1424,7 +1424,7 @@ MonoBehaviour:
     m_Bits: 512
   _startHealth: 100
   _currentHealth: 0
-  _blood: {fileID: 9185274723963077408, guid: d10781be3878d1f4aa1264a737d65f52, type: 3}
+  _blood: {fileID: 8547037588547131242, guid: d10781be3878d1f4aa1264a737d65f52, type: 3}
 --- !u!1 &3121427707555685361
 GameObject:
   m_ObjectHideFlags: 0

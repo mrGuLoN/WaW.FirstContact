@@ -2218,6 +2218,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
+      propertyPath: sendRate
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
+        type: 3}
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 2801134543008897715, guid: 12366a7b313d2894fb71b34f0bc5c08a,
@@ -2361,6 +2366,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789961944103971386, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
+        type: 3}
+      propertyPath: NoDelay
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

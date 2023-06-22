@@ -48,6 +48,10 @@ public class BulletController : NetworkBehaviour
                 }
             }
         }
+        else
+        {
+            return;
+        }
 
         foreach (var bullet in _bullets)
         {

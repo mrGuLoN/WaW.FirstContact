@@ -21,16 +21,7 @@ public class AbstractHealth : NetworkBehaviour
         RagdollOff();
     }
 
-    public virtual void RagdollOn()
-    {
-        foreach (var rigidbody in _allRigidbody)
-        {
-            rigidbody.gameObject.AddComponent<NetworkTransform>();
-            rigidbody.isKinematic = true;
-            rigidbody.useGravity = false;
-            rigidbody.transform.gameObject.layer = 9;
-        }
-    }
+   
     
     public virtual void RagdollOff()
     {
