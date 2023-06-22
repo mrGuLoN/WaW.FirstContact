@@ -25,8 +25,9 @@ public class AbstractHealth : NetworkBehaviour
     {
         foreach (var rigidbody in _allRigidbody)
         {
-            rigidbody.isKinematic = false;
-            rigidbody.useGravity = true;
+            rigidbody.gameObject.AddComponent<NetworkTransform>();
+            rigidbody.isKinematic = true;
+            rigidbody.useGravity = false;
             rigidbody.transform.gameObject.layer = 9;
         }
     }

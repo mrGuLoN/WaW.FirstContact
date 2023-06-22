@@ -10,7 +10,8 @@ public class AbstractBullet : NetworkBehaviour
     public Transform _thisTR;
     public Vector3 previousePosition;
     public LayerMask damageMask;
-    void Awake()
+
+    public virtual void Awake()
     {
         _thisTR = GetComponent<Transform>();
         BulletController.instance.AddBullet(this);

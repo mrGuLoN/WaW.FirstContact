@@ -31,14 +31,14 @@ public class LaboratoryGenerator : NetworkBehaviour
         StartRoom.TriggerBox.enabled = true;
 
         int limit = 1000, roomsLeft = RoomCount - 1;
-        while (limit > 0 && roomsLeft > 0)
+        while (limit > 0 && roomsLeft != 3 && roomsLeft != 6 && roomsLeft != 9)
         {
             limit--;
-            int firstInt = roomsLeft/arenaInt;
-            int checedInt = roomsLeft * firstInt - roomsLeft;
+            int firstInt = (roomsLeft+1)/arenaInt;
+            int checedInt = arenaInt * firstInt - roomsLeft;
             Debug.Log(firstInt +" / " + checedInt);
             Cell selectedPrefab = null;
-            if (roomsLeft != 1 && checedInt>0)
+            if (roomsLeft != 1 && checedInt!=0)
             {
                 selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
                     Quaternion.identity);

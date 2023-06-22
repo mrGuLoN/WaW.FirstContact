@@ -4889,11 +4889,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8921468240410358385}
-  - component: {fileID: 4221211669256829375}
   - component: {fileID: 7817219293603374147}
-  - component: {fileID: 4567205254150063820}
-  - component: {fileID: 8085590161703282141}
-  - component: {fileID: 3425131475900639957}
+  - component: {fileID: -7137458607976493743}
+  - component: {fileID: -362170803162516865}
   m_Layer: 7
   m_Name: Weapon_Rifle_1
   m_TagString: Untagged
@@ -4918,27 +4916,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4221211669256829375
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571131224808929754}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 41ddbc89f43ce1149ba4f6f0f8ad75c8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7817219293603374147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4956,13 +4933,13 @@ MonoBehaviour:
   syncInterval: 0
   _splash: {fileID: 1732800238422742669}
   _gunController: {fileID: 22100000, guid: 2ef9bd6208147d94384bcdc55a48e0c2, type: 2}
-  _bullet: {fileID: 2329586198318373099, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
+  _bullet: {fileID: 4986728580544456466, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
   _pelvis: 1
   _damage: 10
   _speed: 25
   _scram: 0.1
   _firePoint: {fileID: 423790616951604427}
---- !u!114 &4567205254150063820
+--- !u!114 &-7137458607976493743
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4979,7 +4956,7 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
---- !u!114 &8085590161703282141
+--- !u!114 &-362170803162516865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5012,23 +4989,6 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
---- !u!114 &3425131475900639957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571131224808929754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  clientAuthority: 0
-  animator: {fileID: 4221211669256829375}
 --- !u!1 &3718732610143924522
 GameObject:
   m_ObjectHideFlags: 0

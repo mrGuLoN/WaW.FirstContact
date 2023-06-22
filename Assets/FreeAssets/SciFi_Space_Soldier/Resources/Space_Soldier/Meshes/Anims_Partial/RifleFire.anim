@@ -8845,23 +8845,15 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: Fire
+    functionName: CmdFire
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: e71a7abd4d45492c8ca4e242c35eb36f,
       type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.06666667
-    functionName: Fire
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: e71a7abd4d45492c8ca4e242c35eb36f,
-      type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.13333334
-    functionName: Fire
+  - time: 0.1
+    functionName: CmdFire
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: e71a7abd4d45492c8ca4e242c35eb36f,
       type: 3}

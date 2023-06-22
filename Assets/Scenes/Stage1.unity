@@ -161,11 +161,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   GenerateOnStart: 1
-  RoomCount: 24
+  RoomCount: 20
   CellLayer:
     serializedVersion: 2
     m_Bits: 64
-  arenaInt: 0
+  arenaInt: 14
   InsteadDoor: {fileID: 3592850742891315497, guid: bf1da8d4c854f3141949d19854c9692f,
     type: 3}
   DoorPrefabs:

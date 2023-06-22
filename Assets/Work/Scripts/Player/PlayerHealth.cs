@@ -40,7 +40,7 @@ public class PlayerHealth : AbstractHealth
             _playerController.enabled = false;
             _animator.enabled = false;
             base.RagdollOn();
-            rb.AddForce(direction * damage);
+           //_animator.SetTrigger("Dead");
         }
     }
 
