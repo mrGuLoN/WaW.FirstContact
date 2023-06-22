@@ -13,6 +13,7 @@ public class LaboratoryGenerator : NetworkBehaviour
     public GameObject[] DoorPrefabs;
     public Cell[] CellPrefabs;
     public Cell[] CellArena;
+    public Cell[] CellStart;
    
     private void Start()
     {
@@ -31,20 +32,26 @@ public class LaboratoryGenerator : NetworkBehaviour
         StartRoom.TriggerBox.enabled = true;
 
         int limit = 1000, roomsLeft = RoomCount - 1;
-        while (limit > 0 && roomsLeft != 3 && roomsLeft != 6 && roomsLeft != 9)
+        int count =0;
+        while (limit > 0 && roomsLeft >-1)
         {
             limit--;
-            int firstInt = (roomsLeft+1)/arenaInt;
-            int checedInt = arenaInt * firstInt - roomsLeft;
-            Debug.Log(firstInt +" / " + checedInt);
+            count++;
             Cell selectedPrefab = null;
-            if (roomsLeft != 1 && checedInt!=0)
+
+            if (roomsLeft > RoomCount - 4)
+            {
+                selectedPrefab = Instantiate(CellStart[Random.Range(0, CellStart.Length)], Vector3.zero,
+                    Quaternion.identity);
+            }
+            else if (roomsLeft != 1 && count!=arenaInt)
             {
                 selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
                     Quaternion.identity);
             }
             else
             {
+                count = 0;
                 selectedPrefab = Instantiate(CellArena[Random.Range(0, CellArena.Length)], Vector3.zero,
                     Quaternion.identity);
             }

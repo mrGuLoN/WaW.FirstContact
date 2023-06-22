@@ -2219,7 +2219,7 @@ PrefabInstance:
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: sendRate
-      value: 90
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
@@ -2230,17 +2230,17 @@ PrefabInstance:
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: networkAddress
-      value: 192.168.2.110
+      value: 192.168.0.107
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: autoConnectClientBuild
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.size
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
@@ -2300,7 +2300,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnPrefabs.Array.data[9]
       value: 
-      objectReference: {fileID: 9185274723963077408, guid: d10781be3878d1f4aa1264a737d65f52,
+      objectReference: {fileID: 8481725907149599675, guid: 3309823da0421aa4199fc81237c3fb9f,
         type: 3}
     - target: {fileID: 4561792435043363993, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
@@ -2370,7 +2370,7 @@ PrefabInstance:
     - target: {fileID: 8789961944103971386, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: NoDelay
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

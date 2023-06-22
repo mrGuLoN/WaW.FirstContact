@@ -1,7 +1,4 @@
-﻿using System;
-using Mirror;
-using Player.StateMachine.States;
-using UnityEngine;
+﻿using Mirror;
 
 namespace Player.StateMachine
 {

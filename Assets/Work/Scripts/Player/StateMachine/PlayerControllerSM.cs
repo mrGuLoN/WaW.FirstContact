@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Mirror;
 using Player.StateMachine.States;
 using UnityEngine;
@@ -24,6 +25,10 @@ namespace Player.StateMachine
         [HideInInspector] public Animator animator;
         [HideInInspector] public Transform thisTransform;
 
+        private void Awake()
+        {
+            CmdRespawnGun();
+        }
 
         private void Start()
 
@@ -39,7 +44,6 @@ namespace Player.StateMachine
             fireJoyStick = CanvasController.instance.fire;
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
-            CmdRespawnGun();
             ChangeState(nonGunState);
         }
 

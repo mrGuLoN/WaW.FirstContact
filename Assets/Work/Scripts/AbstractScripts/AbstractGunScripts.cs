@@ -7,17 +7,17 @@ public class AbstractGunScripts : NetworkBehaviour
 {
     [SerializeField] protected ParticleSystem _splash;
     [SerializeField] protected AnimatorOverrideController _gunController;
-    [SerializeField] protected AbstractBullet _bullet;
     [SerializeField] private protected int _pelvis;
     [SerializeField] private protected float _damage;
     [SerializeField] private protected float _speed;
     [SerializeField] private protected float _scram;
     [SerializeField] private protected Transform _firePoint;
+    
+    [SerializeField] private AbstractBullet _bullet = new AbstractBullet();
 
 
     public virtual void CmdFire()
     {
-        Debug.Log("FIRE");
         for (int i = 0; i < _pelvis; i++)
         {
            SpawnBullet();
@@ -27,12 +27,8 @@ public class AbstractGunScripts : NetworkBehaviour
     
     private void SpawnBullet()
     {
-        var bullet = Instantiate(_bullet, _firePoint.position, quaternion.identity);
-        bullet.transform.forward = _firePoint.forward +
-                                   new Vector3(Random.Range(-1 * _scram, _scram), 0,
-                                       Random.Range(-1 * _scram, _scram));
-        bullet.speed = _speed;
-        bullet.damage = _damage;
-        NetworkServer.Spawn(bullet.gameObject);
+        _bullet.damage = _damage;
+        _bullet.speed = _speed;
+        BulletController.instance.AddBullet(_bullet, _firePoint, _scram);
     }
 }

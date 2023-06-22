@@ -6,17 +6,15 @@ using UnityEngine;
 public class RifleBullet : AbstractBullet
 {
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(Destroy());
-        
-        base.Awake();
     }
 
     IEnumerator Destroy()
     {
         yield return new WaitForSeconds(1f);
-        BulletController.instance.Remove(this);
+        BulletController.instance.DestroyBullet(this);
     }
 
     // Update is called once per frame

@@ -20,9 +20,6 @@ public class AbstractHealth : NetworkBehaviour
         }
         RagdollOff();
     }
-
-   
-    
     public virtual void RagdollOff()
     {
         foreach (var rigidbody in _allRigidbody)

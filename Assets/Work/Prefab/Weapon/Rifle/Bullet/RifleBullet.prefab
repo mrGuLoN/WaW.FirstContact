@@ -163,10 +163,11 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  damage: 0
-  speed: 0
-  _thisTR: {fileID: 0}
+  damage: 10
+  speed: 25
+  thisTR: {fileID: 4072863049414602816}
   previousePosition: {x: 0, y: 0, z: 0}
+  trailRenderer: {fileID: 1820707321157318126}
   damageMask:
     serializedVersion: 2
     m_Bits: 264
@@ -199,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0
   target: {fileID: 4072863049414602816}

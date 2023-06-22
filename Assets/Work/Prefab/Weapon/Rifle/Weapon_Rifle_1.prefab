@@ -4933,12 +4933,12 @@ MonoBehaviour:
   syncInterval: 0
   _splash: {fileID: 1732800238422742669}
   _gunController: {fileID: 22100000, guid: 2ef9bd6208147d94384bcdc55a48e0c2, type: 2}
-  _bullet: {fileID: 4986728580544456466, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
   _pelvis: 1
   _damage: 10
   _speed: 25
-  _scram: 0.1
+  _scram: 0.02
   _firePoint: {fileID: 423790616951604427}
+  _bullet: {fileID: 4986728580544456466, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
 --- !u!114 &-7137458607976493743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4972,7 +4972,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 8921468240410358385}
-  clientAuthority: 0
+  clientAuthority: 1
   syncPosition: 1
   syncRotation: 1
   syncScale: 0

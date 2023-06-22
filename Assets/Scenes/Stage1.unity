@@ -165,7 +165,7 @@ MonoBehaviour:
   CellLayer:
     serializedVersion: 2
     m_Bits: 64
-  arenaInt: 14
+  arenaInt: 5
   InsteadDoor: {fileID: 3592850742891315497, guid: bf1da8d4c854f3141949d19854c9692f,
     type: 3}
   DoorPrefabs:
@@ -177,6 +177,9 @@ MonoBehaviour:
   - {fileID: 2318731809407188392, guid: f5b2363688e63db4a982efd73d99fbaa, type: 3}
   CellArena:
   - {fileID: 6413157089275197997, guid: e64607c069b286b46ad72a07ff6e0395, type: 3}
+  CellStart:
+  - {fileID: 7626877238096513537, guid: cf1c009f13aedbb49b753c84093bee5a, type: 3}
+  - {fileID: 2318731809407188392, guid: f5b2363688e63db4a982efd73d99fbaa, type: 3}
 --- !u!4 &67465865
 Transform:
   m_ObjectHideFlags: 0
@@ -738,7 +741,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &1080469813
 MonoBehaviour:
@@ -755,7 +758,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _bullets: []
+  _bullet: {fileID: 4986728580544456466, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
 --- !u!114 &1080469814
 MonoBehaviour:
   m_ObjectHideFlags: 0
