@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Enemy.StateMachine;
 using Mirror;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -16,6 +17,8 @@ public class EnemyHealth : AbstractHealth
     
     private float _currentHealth;
     private float _runHealth;
+    private float _speedMove;
+    private EnemyControllerSM _enemyControllerSM;
 
     public override void Awake()
     {
@@ -24,6 +27,7 @@ public class EnemyHealth : AbstractHealth
 
     void Start()
     {
+        _enemyControllerSM = GetComponent<EnemyControllerSM>();
         _currentHealth = _health;
         _runHealth = 0.5f * _health;
         _animator = GetComponent<Animator>();
@@ -33,10 +37,9 @@ public class EnemyHealth : AbstractHealth
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         _currentHealth -= damage;
-
-        float speedMove = (_health - _currentHealth) / _runHealth;
-        _animator.SetFloat("Health", speedMove);
-
+        _speedMove = (_health - _currentHealth) / _runHealth;
+        _enemyControllerSM.speedMove = _speedMove;
+        _animator.SetFloat("Health", _speedMove);
         var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
         blood.transform.forward = direction;
         NetworkServer.Spawn(blood);
@@ -45,9 +48,8 @@ public class EnemyHealth : AbstractHealth
         if (_currentHealth <= 0)
         {
             _animator.SetTrigger("Dead");
+            StartCoroutine(SetStatic());
         }
-
-        StartCoroutine(SetStatic());
     }
 
     IEnumerator SetStatic()

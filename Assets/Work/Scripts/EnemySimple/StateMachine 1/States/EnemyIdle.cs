@@ -27,6 +27,7 @@ namespace Enemy.StateMachine.States
 
         public override void UpdatePhysics()
         {
+            Debug.Log("idle");
             for (int i = 0; i < EnemyController.instance.playerList.Count; i++)
             {
                 if (Vector3.Distance(EnemyController.instance.playerList[i].position,
@@ -37,6 +38,8 @@ namespace Enemy.StateMachine.States
                     if (!Physics.Raycast(_enemyControllerSm.thisTransform.position + Vector3.up, direction.normalized,
                             _enemyControllerSm.radiusLoock, _enemyControllerSm.stage))
                     {
+                        _enemyControllerSm.target = EnemyController.instance.playerList[i];
+                        _enemyControllerSm.ChangeState(_enemyControllerSm.attack);
                         return;
                     }
                 }

@@ -947,7 +947,7 @@ GameObject:
   - component: {fileID: 5850785460731294755}
   m_Layer: 7
   m_Name: RifleGunPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1008,12 +1008,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _damageLayer:
-    serializedVersion: 2
-    m_Bits: 256
-  _deadLayer:
-    serializedVersion: 2
-    m_Bits: 512
   _startHealth: 100
   _currentHealth: 0
   _blood: {fileID: 837689212641272904, guid: d10781be3878d1f4aa1264a737d65f52, type: 3}
@@ -1040,7 +1034,7 @@ MonoBehaviour:
     type: 3}
   _stage:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 8
   _use: {fileID: 0}
   _rightHandGunPoint: {fileID: 4381979644317460855}
   characterController: {fileID: 0}
