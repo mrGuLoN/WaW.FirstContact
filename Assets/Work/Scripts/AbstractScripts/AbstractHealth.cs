@@ -4,9 +4,8 @@ using Mirror;
 using UnityEngine;
 
 public class AbstractHealth : NetworkBehaviour
+
 {
-    [SerializeField] private LayerMask _damageLayer, _deadLayer;
-   
     private List<Collider> _colliders;
     private Transform _centerTransform;
     

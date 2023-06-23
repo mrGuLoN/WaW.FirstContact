@@ -47,6 +47,7 @@ public class PlayerHealth : AbstractHealth
             _playerController.enabled = false;
             _characterController.enabled = false;
             _animator.SetTrigger("Dead");
+            EnemyController.instance.RemovePlayer(_thisTransform);
         }
     }
 
