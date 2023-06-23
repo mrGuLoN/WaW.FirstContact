@@ -97,7 +97,8 @@ public class BulletController : NetworkBehaviour
                         _liveBullet[i].damageMask))
                 {
                     if (hit.transform.gameObject.TryGetComponent(out damageController))
-                    damageController.TakeDamage(_liveBullet[i].damage,hit.point,_liveBullet[i].thisTR.forward,hit.transform.gameObject.GetComponent<Rigidbody>());
+                    damageController.TakeDamage(_liveBullet[i].damage,hit.point,_liveBullet[i].thisTR.forward);
+                    Debug.Log(damageController);
                     DestroyBullet(_liveBullet[i]);
                     i--;
                 }

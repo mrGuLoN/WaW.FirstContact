@@ -7,13 +7,13 @@ public class AbstractHealth : NetworkBehaviour
 {
     [SerializeField] private LayerMask _damageLayer, _deadLayer;
    
-    private List<Rigidbody> _allRigidbody;
+    private List<Collider> _colliders;
     private Transform _centerTransform;
     
     public virtual void Awake()
     {
-        _allRigidbody = GetComponentsInChildren<Rigidbody>().ToList();
-        foreach (var rigidbody in _allRigidbody)
+        _colliders = GetComponentsInChildren<Collider>().ToList();
+        foreach (var rigidbody in _colliders)
         {
             var abstractDamageCollider = rigidbody.transform.gameObject.AddComponent<AbstractDamageCollider>();
             abstractDamageCollider.abstractHealth = this;
@@ -22,15 +22,13 @@ public class AbstractHealth : NetworkBehaviour
     }
     public virtual void RagdollOff()
     {
-        foreach (var rigidbody in _allRigidbody)
+        foreach (var rigidbody in _colliders)
         {
-            rigidbody.isKinematic = true;
-            rigidbody.useGravity = false;
             rigidbody.transform.gameObject.layer = 8;
         }
     }
 
-    public virtual void TakeDamage(float damage, Vector3 point, Vector3 direction, Rigidbody rb)
+    public virtual void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         
     }

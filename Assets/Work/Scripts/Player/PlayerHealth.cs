@@ -31,12 +31,17 @@ public class PlayerHealth : AbstractHealth
         _currentHealth = _startHealth;
     }
 
-    public override void TakeDamage(float damage, Vector3 point, Vector3 direction, Rigidbody rb)
+    public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         _currentHealth -= damage;
         var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
         blood.transform.forward = direction;
         NetworkServer.Spawn(blood);
+        direction = _thisTransform.TransformDirection(direction).normalized;
+        _animator.SetFloat("DamageX", direction.x);
+        _animator.SetFloat("DamageY", direction.z);
+        _animator.SetTrigger("Damage");
+        
         if (_currentHealth <= 0)
         {
             _playerController.enabled = false;
@@ -44,6 +49,8 @@ public class PlayerHealth : AbstractHealth
             _animator.SetTrigger("Dead");
         }
     }
+
+   
 
     // Update is called once per frame
     void Update()
