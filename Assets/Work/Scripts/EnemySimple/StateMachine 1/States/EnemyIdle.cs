@@ -27,11 +27,11 @@ namespace Enemy.StateMachine.States
 
         public override void UpdatePhysics()
         {
-            Debug.Log("idle");
             for (int i = 0; i < EnemyController.instance.playerList.Count; i++)
             {
-                if (Vector3.Distance(EnemyController.instance.playerList[i].position,
-                        _enemyControllerSm.thisTransform.position) < _enemyControllerSm.radiusLoock)
+                float distance = Vector3.Distance(EnemyController.instance.playerList[i].position,
+                    _enemyControllerSm.thisTransform.position);
+                if (distance < _enemyControllerSm.radiusLoock)
                 {
                     var direction = EnemyController.instance.playerList[i].position -
                                     _enemyControllerSm.thisTransform.position;
@@ -42,6 +42,14 @@ namespace Enemy.StateMachine.States
                         _enemyControllerSm.ChangeState(_enemyControllerSm.attack);
                         return;
                     }
+                }
+                else if (distance > 15f)
+                {
+                    _enemyControllerSm.meshRenderer.enabled = false;
+                }
+                else
+                {
+                    _enemyControllerSm.meshRenderer.enabled = true;
                 }
             }
         }

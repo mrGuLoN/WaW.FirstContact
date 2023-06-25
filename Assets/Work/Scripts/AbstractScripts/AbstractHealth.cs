@@ -17,13 +17,23 @@ public class AbstractHealth : NetworkBehaviour
             var abstractDamageCollider = rigidbody.transform.gameObject.AddComponent<AbstractDamageCollider>();
             abstractDamageCollider.abstractHealth = this;
         }
-        RagdollOff();
+        ChangeLayerDamage();
+        this.transform.gameObject.layer = 7;
     }
-    public virtual void RagdollOff()
+    public virtual void ChangeLayerDamage()
     {
-        foreach (var rigidbody in _colliders)
+        foreach (var collider in _colliders)
         {
-            rigidbody.transform.gameObject.layer = 8;
+            collider.enabled = true;
+            collider.transform.gameObject.layer = 8;
+        }
+    }
+
+    public virtual void OffDamageCollider()
+    {
+        foreach (var collider in _colliders)
+        {
+            collider.enabled = false;
         }
     }
 

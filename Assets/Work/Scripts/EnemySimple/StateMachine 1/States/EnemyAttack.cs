@@ -18,6 +18,7 @@ namespace Enemy.StateMachine.States
 
         public override void Enter()
         {
+            _enemyControllerSm.meshRenderer.enabled = true;
             _speedWalk = _enemyControllerSm.speedAnimation * _enemyControllerSm.walkSpeed;
             _speedRun = _enemyControllerSm.speedAnimation * _enemyControllerSm.runSpeed;
             _targetTransform = _enemyControllerSm.target;
@@ -39,8 +40,8 @@ namespace Enemy.StateMachine.States
             if (Physics.Raycast(_thisTransform.position + Vector3.up, _thisTransform.forward ,
                     direction, _enemyControllerSm.stage))
             {
-                
-                _enemyControllerSm.ChangeState(_enemyControllerSm.idle);
+                _enemyControllerSm.playerLastCoordinate = _targetTransform.position;
+                _enemyControllerSm.ChangeState(_enemyControllerSm.enemyFindObject);
                 return;
             }
             _realSpeed = _speedWalk + _checkSpeed *  _enemyControllerSm.speedMove;

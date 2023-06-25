@@ -4908,6 +4908,7 @@ GameObject:
   - component: {fileID: 1162477665488346229}
   - component: {fileID: 3823683868767710409}
   - component: {fileID: 7687525919688303811}
+  - component: {fileID: -8370390014487450816}
   m_Layer: 0
   m_Name: Blood
   m_TagString: Untagged
@@ -9843,3 +9844,18 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &-8370390014487450816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5172858915992025693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8743907819175084ca33f247ffbace66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0

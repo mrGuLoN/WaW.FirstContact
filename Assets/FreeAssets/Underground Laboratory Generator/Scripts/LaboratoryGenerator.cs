@@ -14,7 +14,8 @@ public class LaboratoryGenerator : NetworkBehaviour
     public Cell[] CellPrefabs;
     public Cell[] CellArena;
     public Cell[] CellStart;
-   
+
+    private List<Cell> _respawnCellList = new List<Cell>();
     private void Start()
     {
         if (arenaInt == 0) arenaInt = 3;
@@ -28,6 +29,7 @@ public class LaboratoryGenerator : NetworkBehaviour
         Cell StartRoom = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
             Quaternion.identity);
         NetworkServer.Spawn(StartRoom.gameObject);
+        _respawnCellList.Add(StartRoom);
         for (int i = 0; i < StartRoom.Exits.Length; i++) CreatedExits.Add(StartRoom.Exits[i].transform);
         StartRoom.TriggerBox.enabled = true;
 
@@ -56,6 +58,7 @@ public class LaboratoryGenerator : NetworkBehaviour
                     Quaternion.identity);
             }
             NetworkServer.Spawn(selectedPrefab.gameObject);
+            _respawnCellList.Add(selectedPrefab);
             int lim = 100;
             bool collided;
             Transform selectedExit;
@@ -115,6 +118,7 @@ public class LaboratoryGenerator : NetworkBehaviour
             {
                 NetworkServer.Destroy(selectedPrefab.gameObject);
                 DestroyImmediate(selectedPrefab.gameObject);
+                _respawnCellList.Remove(selectedPrefab);
             }
 
             yield return new WaitForEndOfFrame();
@@ -129,5 +133,10 @@ public class LaboratoryGenerator : NetworkBehaviour
         }
 
         Debug.Log("Finished " + Time.time);
+
+        foreach (var respawn in _respawnCellList)
+        {
+            respawn.CmdEnemyRespawn();
+        }
     }
 }

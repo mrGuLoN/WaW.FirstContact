@@ -19,6 +19,7 @@ public class EnemyHealth : AbstractHealth
     private float _runHealth;
     private float _speedMove;
     private EnemyControllerSM _enemyControllerSM;
+    private CharacterController _character;
 
     public override void Awake()
     {
@@ -27,6 +28,7 @@ public class EnemyHealth : AbstractHealth
 
     void Start()
     {
+        _character = GetComponent<CharacterController>();
         _enemyControllerSM = GetComponent<EnemyControllerSM>();
         _currentHealth = _health;
         _runHealth = 0.5f * _health;
@@ -47,7 +49,11 @@ public class EnemyHealth : AbstractHealth
         
         if (_currentHealth <= 0)
         {
+            EnemyController.instance.RemoveEnemy(_enemyControllerSM);
+            _character.enabled = false;
+            _enemyControllerSM.enabled = false;
             _animator.SetTrigger("Dead");
+            OffDamageCollider();
             StartCoroutine(SetStatic());
         }
     }

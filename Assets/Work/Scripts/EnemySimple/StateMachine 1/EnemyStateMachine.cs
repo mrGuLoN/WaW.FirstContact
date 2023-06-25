@@ -13,8 +13,8 @@ namespace Enemy.StateMachine
             _currentState = GetInitialState();
             if (_currentState != null) _currentState.Enter();
         }
-      
-        private void Update()
+
+        public void UpdateLogic()
         {
             if (_currentState != null)
             {
@@ -23,11 +23,10 @@ namespace Enemy.StateMachine
             }
         } 
         
-        private void LateUpdate()
+        public void UpdatePhysics()
         {
-            if (_currentState != null)
+            if (_currentState != null && isServer)
             {
-                if (!isServer) return;
                 _currentState.UpdatePhysics();
             }
         }
