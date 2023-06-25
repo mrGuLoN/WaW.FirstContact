@@ -28,6 +28,8 @@ namespace Player.StateMachine
         private void Awake()
         {
             CmdRespawnGun();
+            thisTransform = GetComponent<Transform>();
+            EnemyController.instance.AddPlayer(thisTransform);
         }
 
         private void Start()
@@ -38,8 +40,6 @@ namespace Player.StateMachine
             gunState = new PlayerGunState(this);
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
-            thisTransform = GetComponent<Transform>();
-            EnemyController.instance.AddPlayer(thisTransform);
             Camera.main.GetComponent<CameraController>().player = thisTransform;
             movementJoyStick = CanvasController.instance.move;
             fireJoyStick = CanvasController.instance.fire;
@@ -68,6 +68,7 @@ namespace Player.StateMachine
         
         public void CmdFire()
         {
+            if (isLocalPlayer)
             firstGun.CmdFire();
         }
 

@@ -40,7 +40,6 @@ public class BulletController : NetworkBehaviour
 
     public void AddBullet(AbstractBullet bullet, Transform firePoint, float scram)
     {
-        if (!isServer) return;
         for (int i =0; i <= _bullets.Count;i++)
         {
             if (!_bullets[i].gameObject.activeSelf)
