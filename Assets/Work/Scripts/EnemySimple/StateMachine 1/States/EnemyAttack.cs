@@ -40,13 +40,20 @@ namespace Enemy.StateMachine.States
             if (Physics.Raycast(_thisTransform.position + Vector3.up, _thisTransform.forward ,
                     direction, _enemyControllerSm.stage))
             {
+                _enemyControllerSm.animator.SetBool("Fight", false);
                 _enemyControllerSm.playerLastCoordinate = _targetTransform.position;
                 _enemyControllerSm.ChangeState(_enemyControllerSm.enemyFindObject);
-                return;
             }
-            _realSpeed = _speedWalk + _checkSpeed *  _enemyControllerSm.speedMove;
-            Debug.Log(_realSpeed + " / " + _checkSpeed * _enemyControllerSm.speedMove);
-            _characterController.Move(_thisTransform.forward * _realSpeed*Time.deltaTime);
+            else if (direction < 1.5f)
+            {
+                _enemyControllerSm.animator.SetBool("Fight", true);
+            }
+            else
+            {
+                _enemyControllerSm.animator.SetBool("Fight", false);
+                _realSpeed = _speedWalk + _checkSpeed *  _enemyControllerSm.speedMove;
+                _characterController.Move(_thisTransform.forward * _realSpeed*Time.deltaTime);
+            }
         }
     }
 }

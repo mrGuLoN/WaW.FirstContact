@@ -14,7 +14,7 @@ public class BulletController : NetworkBehaviour
     private float _distance;
     public static BulletController instance = null;
 
-    void Awake()
+    public void Awake()
     {
         if (instance == null)
         {
@@ -26,9 +26,8 @@ public class BulletController : NetworkBehaviour
         }
     }
 
-    private void Start()
+    public void Start()
     {
-        if (!isServer) return;
         for (int i = 0; i < 30; i++)
         {
             var bul = Instantiate(_bullet, this.transform);
@@ -42,6 +41,7 @@ public class BulletController : NetworkBehaviour
     {
         for (int i =0; i <= _bullets.Count;i++)
         {
+            Debug.Log("FFFFirrreeee!!!!");
             if (!_bullets[i].gameObject.activeSelf)
             {
                 _bullets[i].speed = bullet.speed;
@@ -76,9 +76,8 @@ public class BulletController : NetworkBehaviour
         bullet.thisTR.position = Vector3.zero;
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
-        if (!isServer) return;
         if (_liveBullet.Count > 0)
         {
             foreach (var bullet in _liveBullet)
@@ -97,7 +96,6 @@ public class BulletController : NetworkBehaviour
                 {
                     if (hit.transform.gameObject.TryGetComponent(out damageController))
                     damageController.TakeDamage(_liveBullet[i].damage,hit.point,_liveBullet[i].thisTR.forward);
-                    Debug.Log(damageController);
                     DestroyBullet(_liveBullet[i]);
                     i--;
                 }

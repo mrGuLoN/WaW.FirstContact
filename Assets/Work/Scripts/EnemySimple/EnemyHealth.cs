@@ -28,6 +28,7 @@ public class EnemyHealth : AbstractHealth
 
     void Start()
     {
+        if (!isServer) return;
         _character = GetComponent<CharacterController>();
         _enemyControllerSM = GetComponent<EnemyControllerSM>();
         _currentHealth = _health;
@@ -38,6 +39,7 @@ public class EnemyHealth : AbstractHealth
     
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
+        if (!isServer) return;
         _currentHealth -= damage;
         _speedMove = (_health - _currentHealth) / _runHealth;
         _enemyControllerSM.speedMove = _speedMove;

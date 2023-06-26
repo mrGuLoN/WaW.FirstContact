@@ -17,6 +17,7 @@ namespace Enemy.StateMachine.States
         public override void Enter()
         {
             _enemyControllerSm.animator.SetBool("Move", false);
+            _enemyControllerSm.animator.SetBool("Fight", false);
         }
 
         public override void UpdateLogic()

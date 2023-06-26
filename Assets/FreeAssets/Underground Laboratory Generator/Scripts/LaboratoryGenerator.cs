@@ -11,6 +11,7 @@ public class LaboratoryGenerator : NetworkBehaviour
     public int arenaInt;
     public GameObject InsteadDoor;
     public GameObject[] DoorPrefabs;
+    public Cell startLocation;
     public Cell[] CellPrefabs;
     public Cell[] CellArena;
     public Cell[] CellStart;
@@ -26,7 +27,7 @@ public class LaboratoryGenerator : NetworkBehaviour
     IEnumerator StartGeneration()
     {
         List<Transform> CreatedExits = new List<Transform>();
-        Cell StartRoom = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
+        Cell StartRoom = Instantiate(startLocation, Vector3.zero,
             Quaternion.identity);
         NetworkServer.Spawn(StartRoom.gameObject);
         _respawnCellList.Add(StartRoom);

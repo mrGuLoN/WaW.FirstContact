@@ -40,6 +40,7 @@ namespace Player.StateMachine
             gunState = new PlayerGunState(this);
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
+            firstGun.SetAnimator(animator);
             Camera.main.GetComponent<CameraController>().player = thisTransform;
             movementJoyStick = CanvasController.instance.move;
             fireJoyStick = CanvasController.instance.fire;
@@ -57,6 +58,11 @@ namespace Player.StateMachine
         {
             firstGun = Instantiate(firstGun, _rightHandGunPoint.position, Quaternion.identity, _rightHandGunPoint);
             NetworkServer.Spawn(firstGun.gameObject);
+        }
+
+        public void EndReload()
+        {
+            firstGun.Reloading();
         }
 
 

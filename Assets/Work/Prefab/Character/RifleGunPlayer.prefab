@@ -1607,7 +1607,7 @@ MonoBehaviour:
   syncInterval: 0
   _startHealth: 100
   _currentHealth: 0
-  _blood: {fileID: 837689212641272904, guid: d10781be3878d1f4aa1264a737d65f52, type: 3}
+  _blood: {fileID: 5172858915992025693, guid: d10781be3878d1f4aa1264a737d65f52, type: 3}
 --- !u!114 &7706209885523868050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.02
   clientAuthority: 1

@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class RifleGun : AbstractGunScripts
 {
-    
+    public override void SetAnimator(Animator Animator)
+    {
+        Debug.Log("RELOAD");
+        animator = Animator;
+    }
     public override void CmdFire()
     {
         _splash.Play();

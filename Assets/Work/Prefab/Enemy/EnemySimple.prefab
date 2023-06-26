@@ -1520,7 +1520,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  _health: 50
+  _health: 30
   _blood: {fileID: 837689212641272904, guid: 6d5c0a5d397408c4199351e7fdc916c1, type: 3}
   _animator: {fileID: 1944005388818989446}
   _visual: {fileID: 501358247753359737}
@@ -1543,6 +1543,7 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 5
   radiusLoock: 10
+  damage: 2
   stage:
     serializedVersion: 2
     m_Bits: 8
@@ -1646,7 +1647,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  clientAuthority: 0
+  clientAuthority: 1
   animator: {fileID: 1944005388818989446}
 --- !u!1 &7045728606267320607
 GameObject:

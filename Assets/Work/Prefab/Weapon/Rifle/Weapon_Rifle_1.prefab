@@ -4931,6 +4931,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  animator: {fileID: 0}
   _splash: {fileID: 1732800238422742669}
   _gunController: {fileID: 22100000, guid: 2ef9bd6208147d94384bcdc55a48e0c2, type: 2}
   _pelvis: 1
@@ -4938,6 +4939,8 @@ MonoBehaviour:
   _speed: 25
   _scram: 0.02
   _firePoint: {fileID: 423790616951604427}
+  _magazine: 30
+  _allAmmo: 300
   _bullet: {fileID: 4986728580544456466, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
 --- !u!114 &-7137458607976493743
 MonoBehaviour:

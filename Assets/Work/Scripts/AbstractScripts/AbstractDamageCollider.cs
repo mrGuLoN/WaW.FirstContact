@@ -7,6 +7,5 @@ public class AbstractDamageCollider : MonoBehaviour
     public void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         abstractHealth.TakeDamage( damage,  point,  direction);
-        Debug.Log("TakeDamageCollider");
     }
 }

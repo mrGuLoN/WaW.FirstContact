@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 public class CanvasController : MonoBehaviour
 {
     public  Joystick move, fire;
     public Button useButton;
+    public Text health, ammo;
 
     public static CanvasController instance = null;
     void Awake()

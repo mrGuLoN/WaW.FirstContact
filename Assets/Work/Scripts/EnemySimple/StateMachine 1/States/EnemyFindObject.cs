@@ -16,6 +16,7 @@ namespace Enemy.StateMachine.States
 
         public override void Enter()
         {
+            _enemyControllerSm.animator.SetBool("Fight", false);
             _speedWalk = _enemyControllerSm.speedAnimation * _enemyControllerSm.walkSpeed;
             _speedRun = _enemyControllerSm.speedAnimation * _enemyControllerSm.runSpeed;
             _checkSpeed = _speedRun - _speedWalk;

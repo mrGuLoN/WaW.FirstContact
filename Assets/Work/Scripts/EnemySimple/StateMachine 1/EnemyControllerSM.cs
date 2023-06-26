@@ -7,7 +7,7 @@ namespace Enemy.StateMachine
 {
     public class EnemyControllerSM : EnemyStateMachine
     {
-        public float walkSpeed, runSpeed, radiusLoock;
+        public float walkSpeed, runSpeed, radiusLoock, damage;
         public LayerMask stage;
         public SkinnedMeshRenderer meshRenderer;
 
@@ -46,6 +46,11 @@ namespace Enemy.StateMachine
         public bool IsWallOnWay(Vector3 direction)
         {
             return Physics.Raycast(thisTransform.position + Vector3.up, direction, 0.5f, stage);
+        }
+
+        public void Hit()
+        {
+            target.gameObject.GetComponent<AbstractHealth>().TakeDamage(damage, target.position + Vector3.up*1.6f, thisTransform.forward);
         }
 
 

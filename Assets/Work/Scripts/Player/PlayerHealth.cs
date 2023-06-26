@@ -1,6 +1,7 @@
 using Mirror;
 using Player.StateMachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : AbstractHealth
 {
@@ -15,6 +16,7 @@ public class PlayerHealth : AbstractHealth
     private CharacterController _characterController;
     private Vector3 _directionDamage;
     private PlayerControllerSM _playerController;
+    private Text _health;
 
     public override void Awake()
     {
@@ -24,15 +26,19 @@ public class PlayerHealth : AbstractHealth
     private void Start()
     {
         if (!isLocalPlayer) return;
+        _health = CanvasController.instance.health;
         _characterController = GetComponent<CharacterController>();
         _playerController = GetComponent<PlayerControllerSM>();
         _animator = GetComponent<Animator>();
         _thisTransform = GetComponent<Transform>();
         _currentHealth = _startHealth;
+        _health.text = _currentHealth.ToString();
     }
 
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
+        if (!isLocalPlayer) return;
+        if (_currentHealth<0)return;
         _currentHealth -= damage;
         var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
         blood.transform.forward = direction;
@@ -41,12 +47,14 @@ public class PlayerHealth : AbstractHealth
         _animator.SetFloat("DamageX", direction.x);
         _animator.SetFloat("DamageY", direction.z);
         _animator.SetTrigger("Damage");
-        
+        _health.text = _currentHealth.ToString();
         if (_currentHealth <= 0)
-        {
+        { 
+            _health.text = "Nice meat";
             _playerController.enabled = false;
             _characterController.enabled = false;
             _animator.SetTrigger("Dead");
+            _animator.SetBool("Fire", false);
             EnemyController.instance.RemovePlayer(_thisTransform);
         }
     }

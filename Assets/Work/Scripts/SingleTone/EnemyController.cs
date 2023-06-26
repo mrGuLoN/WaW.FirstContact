@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections.Generic;
 using Enemy.StateMachine;
+using Enemy.StateMachine.States;
 using UnityEngine;
 
 public class EnemyController : NetworkBehaviour
@@ -41,10 +42,14 @@ public class EnemyController : NetworkBehaviour
     {
         if (isServer)
         playerList.Remove(player);
+        for (int i = 0; i < _enemyControllerSmList.Count; i++)
+        {
+            _enemyControllerSmList[i].ChangeState(_enemyControllerSmList[i].idle);
+        }
     }
     private void FixedUpdate()
     {
-        Debug.Log(_enemyControllerSmList.Count);
+        if (isServer)
         for (int i = 0; i < _enemyControllerSmList.Count; i++)
         {
             _enemyControllerSmList[i].UpdatePhysics();
