@@ -15,8 +15,8 @@ TagManager:
   - Player
   - DamageLayer
   - DeadLayer
-  - 
-  - 
+  - PickupInventory
+  - Enemy
   - 
   - 
   - 

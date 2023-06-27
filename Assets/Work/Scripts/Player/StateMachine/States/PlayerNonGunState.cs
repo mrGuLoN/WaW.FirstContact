@@ -18,6 +18,7 @@ namespace Player.StateMachine.States
         {
             _speed = _playerControllerSm.nonGunSpeed;
             _playerControllerSm.animator.SetBool("Fire", false);
+            _playerControllerSm.animator.SetBool("SecondWeaponFire", false);
         }
 
         public override void UpdateLogic()

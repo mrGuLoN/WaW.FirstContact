@@ -18,7 +18,17 @@ namespace Player.StateMachine.States
 
         public override void Enter()
         {
-            _playerControllerSm.animator.SetBool("Fire", true);
+            if (_playerControllerSm.secondFire.isOn)
+            {
+                _playerControllerSm.animator.SetBool("SecondWeaponFire", true);
+                _playerControllerSm.animator.SetBool("Fire", false);
+            }
+            else
+            {
+                _playerControllerSm.animator.SetBool("SecondWeaponFire", false);
+                _playerControllerSm.animator.SetBool("Fire", true);
+            }
+
             _speed = _playerControllerSm.gunSpeed;
         }
 

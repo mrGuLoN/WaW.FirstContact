@@ -2,6 +2,7 @@
 using System.Collections;
 using Mirror;
 using Player.StateMachine.States;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +13,13 @@ namespace Player.StateMachine
         public float nonGunSpeed, gunSpeed;
         public Joystick movementJoyStick;
         public Joystick fireJoyStick;
+        public Toggle secondFire;
         public AbstractGunScripts firstGun;
 
         [SerializeField] private LayerMask _stage;
-        [SerializeField] private Button _use;
+        [SerializeField] private Button _use, _special;
         [SerializeField] private Transform _rightHandGunPoint;
-
+        [SerializeField] private GameObject _specialObj;
 
         [HideInInspector] public PlayerNonGunState nonGunState;
         [HideInInspector] public PlayerGunState gunState;
@@ -43,7 +45,10 @@ namespace Player.StateMachine
             firstGun.SetAnimator(animator);
             Camera.main.GetComponent<CameraController>().player = thisTransform;
             movementJoyStick = CanvasController.instance.move;
+            _special = CanvasController.instance.special;
             fireJoyStick = CanvasController.instance.fire;
+            secondFire = CanvasController.instance.secondWeapon;
+            _special.onClick.AddListener(Special);
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
             ChangeState(nonGunState);
@@ -65,6 +70,17 @@ namespace Player.StateMachine
             firstGun.Reloading();
         }
 
+        private void Special()
+        {
+            animator.SetTrigger("SpecialMove");
+        }
+
+        public void SpecialPlace()
+        {
+            Instantiate(_specialObj, thisTransform.position, quaternion.identity);
+        }
+
+
 
         public bool IsWallOnWay(Vector3 direction)
         {
@@ -75,7 +91,9 @@ namespace Player.StateMachine
         public void CmdFire()
         {
             if (isLocalPlayer)
-            firstGun.CmdFire();
+            {
+               firstGun.CmdFire();
+            }
         }
 
         protected override PlayerBaseState GetInitialState()

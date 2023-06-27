@@ -1627,13 +1627,17 @@ MonoBehaviour:
   gunSpeed: 2
   movementJoyStick: {fileID: 0}
   fireJoyStick: {fileID: 0}
+  secondFire: {fileID: 0}
   firstGun: {fileID: 7817219293603374147, guid: 468fa149c8331b743aae7bb70b00432b,
     type: 3}
   _stage:
     serializedVersion: 2
     m_Bits: 8
   _use: {fileID: 0}
+  _special: {fileID: 0}
   _rightHandGunPoint: {fileID: 4142473813702344775}
+  _specialObj: {fileID: 5737836552539623348, guid: 19e6cd9208049534788a81fb828ad2f8,
+    type: 3}
   characterController: {fileID: 0}
   animator: {fileID: 0}
   thisTransform: {fileID: 0}

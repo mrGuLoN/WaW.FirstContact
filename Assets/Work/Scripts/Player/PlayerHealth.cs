@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealth : AbstractHealth
 {
-    [SerializeField]
-    private float _startHealth;
+    [SerializeField] private float _startHealth;
 
     [SerializeField] private float _currentHealth;
     [SerializeField] private GameObject _blood;
@@ -35,21 +34,22 @@ public class PlayerHealth : AbstractHealth
         _health.text = _currentHealth.ToString();
     }
 
+    //[ClientRpc]
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         if (!isLocalPlayer) return;
-        if (_currentHealth<0)return;
+        if (_currentHealth < 0) return;
         _currentHealth -= damage;
-        var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
+        var blood = Instantiate(_blood, point, Quaternion.Euler(direction));
         blood.transform.forward = direction;
         NetworkServer.Spawn(blood);
-        direction = _thisTransform.TransformDirection(direction).normalized;
+        direction = -1*_thisTransform.TransformDirection(direction).normalized;
         _animator.SetFloat("DamageX", direction.x);
         _animator.SetFloat("DamageY", direction.z);
         _animator.SetTrigger("Damage");
         _health.text = _currentHealth.ToString();
         if (_currentHealth <= 0)
-        { 
+        {
             _health.text = "Nice meat";
             _playerController.enabled = false;
             _characterController.enabled = false;
@@ -64,6 +64,5 @@ public class PlayerHealth : AbstractHealth
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

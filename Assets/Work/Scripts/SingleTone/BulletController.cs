@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BulletController : NetworkBehaviour
+public class BulletController : MonoBehaviour
 {
     [SerializeField] private AbstractBullet _bullet;
     private List<AbstractBullet> _bullets = new List<AbstractBullet>();
