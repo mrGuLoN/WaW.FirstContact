@@ -37,9 +37,17 @@ public class EnemyHealth : AbstractHealth
         _thisTransform = GetComponent<Transform>();
     }
     
+    [ClientRpc]
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
-        if (!isServer) return;
+        DamageEnemy(damage, point, direction);
+    }
+
+    [Server]
+
+    public void DamageEnemy(float damage, Vector3 point, Vector3 direction)
+    {
+       
         _currentHealth -= damage;
         _speedMove = (_health - _currentHealth) / _runHealth;
         _enemyControllerSM.speedMove = _speedMove;
@@ -58,7 +66,9 @@ public class EnemyHealth : AbstractHealth
             OffDamageCollider();
             StartCoroutine(SetStatic());
         }
+        
     }
+    
 
     IEnumerator SetStatic()
     {

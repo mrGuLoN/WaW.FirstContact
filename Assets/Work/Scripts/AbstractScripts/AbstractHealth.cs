@@ -37,7 +37,7 @@ public class AbstractHealth : NetworkBehaviour
         }
     }
     
-    [ClientRpc]
+   
     public virtual void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         
