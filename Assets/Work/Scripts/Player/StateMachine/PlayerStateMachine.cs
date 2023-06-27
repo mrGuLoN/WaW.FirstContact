@@ -9,7 +9,6 @@ namespace Player.StateMachine
         
         private void Start()
         {
-            if (!isLocalPlayer) return;
             _currentState = GetInitialState();
             if (_currentState != null) _currentState.Enter();
         }

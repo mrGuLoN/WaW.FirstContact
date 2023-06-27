@@ -28,24 +28,25 @@ public class BulletController : MonoBehaviour
 
     public void Start()
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 10; i++)
         {
-            var bul = Instantiate(_bullet, this.transform);
-            _bullets.Add(bul);
-            NetworkServer.Spawn(bul.gameObject);
-            bul.gameObject.SetActive(false);
+            var bullet = Instantiate(_bullet, transform);
+            bullet.gameObject.SetActive(false);
+            _bullets.Add(bullet);
+            NetworkServer.Spawn(bullet.gameObject);
         }
+       
     }
 
-    public void AddBullet(AbstractBullet bullet, Transform firePoint, float scram)
+    public void AddBullet(float damage, float speed, Transform firePoint, float scram)
     {
         for (int i =0; i <= _bullets.Count;i++)
         {
             Debug.Log("FFFFirrreeee!!!!");
             if (!_bullets[i].gameObject.activeSelf)
             {
-                _bullets[i].speed = bullet.speed;
-                _bullets[i].damage = bullet.damage;
+                _bullets[i].speed = speed;
+                _bullets[i].damage = damage;
                 _bullets[i].thisTR.position = firePoint.position;
                 _bullets[i].thisTR.forward = firePoint.forward + new Vector3 (Random.Range(-1*scram,scram), 0, Random.Range(-1*scram,scram));
                 _bullets[i].previousePosition = firePoint.position;
@@ -59,8 +60,8 @@ public class BulletController : MonoBehaviour
                 var bulls = Instantiate(_bullet, firePoint.position, quaternion.identity,this.transform);
                 _bullets.Add(bulls);
                 NetworkServer.Spawn(bulls.gameObject);
-                bulls.speed = bullet.speed;
-                bulls.damage = bullet.damage;
+                bulls.speed = speed;
+                bulls.damage = damage;
                 bulls.thisTR.position = firePoint.position;
                 bulls.thisTR.forward = firePoint.forward + new Vector3 (Random.Range(-1*scram,scram), 0, Random.Range(-1*scram,scram));;
                 bulls.previousePosition = firePoint.position;

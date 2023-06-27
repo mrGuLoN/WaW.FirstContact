@@ -1,4 +1,5 @@
 ﻿using Enemy.StateMachine.States;
+using Mirror;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -30,7 +31,6 @@ namespace Enemy.StateMachine
         private void Start()
 
         {
-            if (!isServer) return;
             idle = new EnemyIdle(this);
             attack = new EnemyAttack(this);
             enemyFindObject = new EnemyFindObject(this);
@@ -40,6 +40,45 @@ namespace Enemy.StateMachine
             speedAnimation = Random.Range(0.95f, 1.05f);
             animator.SetFloat("SpeedMovement", speedAnimation);
             ChangeState(idle);
+        }
+
+        public void Dead()
+        {
+            animator.SetTrigger("Dead");
+            CMDDead();
+        }
+        [ClientRpc]
+        public void CMDDead()
+        {
+            animator.SetTrigger("Dead");
+        }
+
+        public void Damage()
+        {
+            animator.SetTrigger("Damage");
+            CMDDamage();
+        }
+
+        [ClientRpc]
+        public void CMDDamage()
+        {
+            animator.SetTrigger("Damage");
+        }
+
+        public void CheckDistanse()
+        {
+            for (int i = 0; i < EnemyController.instance.playerList.Count; i++)
+            {
+                if (Vector3.Distance(thisTransform.position,
+                        EnemyController.instance.playerList[i].transform.position) > 15)
+                {
+                    meshRenderer.enabled = false;
+                }
+                else
+                {
+                    meshRenderer.enabled = true;
+                }
+            }
         }
 
 

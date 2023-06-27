@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class EnemyHealth : AbstractHealth
 {
-    // Start is called before the first frame update
     [SerializeField] private float _health;
     [SerializeField] private GameObject _blood;
     [SerializeField]private Animator _animator;
@@ -36,14 +35,11 @@ public class EnemyHealth : AbstractHealth
         _animator = GetComponent<Animator>();
         _thisTransform = GetComponent<Transform>();
     }
-    
-    [ClientRpc]
+
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         DamageEnemy(damage, point, direction);
     }
-
-    [Server]
 
     public void DamageEnemy(float damage, Vector3 point, Vector3 direction)
     {
@@ -51,22 +47,20 @@ public class EnemyHealth : AbstractHealth
         _currentHealth -= damage;
         _speedMove = (_health - _currentHealth) / _runHealth;
         _enemyControllerSM.speedMove = _speedMove;
-        _animator.SetFloat("Health", _speedMove);
+        _enemyControllerSM.animator.SetFloat("Health", _speedMove);
         var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
         blood.transform.forward = direction;
         NetworkServer.Spawn(blood);
-        _animator.SetTrigger("Damage");
+        _enemyControllerSM.Damage();
         
         if (_currentHealth <= 0)
         {
             EnemyController.instance.RemoveEnemy(_enemyControllerSM);
             _character.enabled = false;
-            _enemyControllerSM.enabled = false;
-            _animator.SetTrigger("Dead");
+            _enemyControllerSM.Dead();
             OffDamageCollider();
             StartCoroutine(SetStatic());
         }
-        
     }
     
 

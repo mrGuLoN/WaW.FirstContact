@@ -2,17 +2,15 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Text;
-using Mirror;
 #if UNITY_EDITOR
 using UnityEditor;
-using Mirror;
 using System.Text.RegularExpressions;
 #endif
 
 // A UI element to show information about a debug entry
 namespace IngameDebugConsole
 {
-	public class DebugLogItem : NetworkBehaviour, IPointerClickHandler
+	public class DebugLogItem : MonoBehaviour, IPointerClickHandler
 	{
 		#region Platform Specific Elements
 #if !UNITY_2018_1_OR_NEWER

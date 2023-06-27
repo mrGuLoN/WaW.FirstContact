@@ -9,7 +9,6 @@ namespace Enemy.StateMachine
         
         private void Start()
         {
-            if (!isServer) return;
             _currentState = GetInitialState();
             if (_currentState != null) _currentState.Enter();
         }
@@ -18,14 +17,13 @@ namespace Enemy.StateMachine
         {
             if (_currentState != null)
             {
-                if (!isServer) return;
                 _currentState.UpdateLogic();
             }
         } 
         
         public void UpdatePhysics()
         {
-            if (_currentState != null && isServer)
+            if (_currentState != null)
             {
                 _currentState.UpdatePhysics();
             }
