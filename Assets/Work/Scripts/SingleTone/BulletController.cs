@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BulletController : NetworkBehaviour
+public class BulletController : MonoBehaviour
 {
     [SerializeField] private AbstractBullet _bullet;
     private List<AbstractBullet> _bullets = new List<AbstractBullet>();
@@ -28,13 +28,12 @@ public class BulletController : NetworkBehaviour
 
     public void Start()
     {
-        if (!isServer) return;
         for (int i = 0; i < 10; i++)
         {
             var bullet = Instantiate(_bullet, transform);
             bullet.gameObject.SetActive(false);
             _bullets.Add(bullet);
-            NetworkServer.Spawn(bullet.gameObject);
+           // NetworkServer.Spawn(bullet.gameObject);
         }
        
     }

@@ -37,12 +37,33 @@ public class EnemyHealth : AbstractHealth
 
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
-        DamageEnemy(damage, point, direction);
+        CMDDamageEnemy(damage, point, direction);
     }
-
+    [ClientRpc]
     public void DamageEnemy(float damage, Vector3 point, Vector3 direction)
     {
-       
+        Debug.Log("Mememe");
+        _currentHealth -= damage;
+        _speedMove = (_health - _currentHealth) / _runHealth;
+        _enemyControllerSM.speedMove = _speedMove;
+        _enemyControllerSM.animator.SetFloat("Health", _speedMove);
+        var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
+        blood.transform.forward = direction;
+        _enemyControllerSM.Damage();
+        
+        if (_currentHealth <= 0)
+        {
+            _character.enabled = false;
+            _enemyControllerSM.Dead();
+            OffDamageCollider();
+            StartCoroutine(SetStatic());
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CMDDamageEnemy(float damage, Vector3 point, Vector3 direction)
+    {
+        Debug.Log("Bububu");
         _currentHealth -= damage;
         _speedMove = (_health - _currentHealth) / _runHealth;
         _enemyControllerSM.speedMove = _speedMove;
@@ -60,7 +81,10 @@ public class EnemyHealth : AbstractHealth
             OffDamageCollider();
             StartCoroutine(SetStatic());
         }
+
+        DamageEnemy(damage, point, direction);
     }
+    
     
 
     IEnumerator SetStatic()

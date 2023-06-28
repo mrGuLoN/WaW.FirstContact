@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyController : NetworkBehaviour
 {
-    [SerializeField] private List<Transform> playerList = new();
+    public List<Transform> playerList = new();
     [SerializeField] private List<EnemyControllerSM> _enemyControllerSmList = new();
     private List<EnemyControllerSM> _enemyDeadListSkin = new();
 
@@ -57,6 +57,12 @@ public class EnemyController : NetworkBehaviour
     private void FixedUpdate()
     {
         if (!isServer) return;
+        CallBackAll();
+       
+    }
+    
+    private void CallBackAll()
+    {
         for (int i = 0; i < _enemyControllerSmList.Count; i++)
         {
             _enemyControllerSmList[i].UpdatePhysics();

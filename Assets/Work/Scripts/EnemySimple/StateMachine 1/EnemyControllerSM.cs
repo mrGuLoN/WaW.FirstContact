@@ -25,6 +25,7 @@ namespace Enemy.StateMachine
 
         private void Awake()
         {
+            if (!isServer)
             EnemyController.instance.AddEnemy(this);
         }
 
