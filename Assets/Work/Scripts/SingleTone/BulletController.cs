@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BulletController : MonoBehaviour
+public class BulletController : NetworkBehaviour
 {
     [SerializeField] private AbstractBullet _bullet;
     private List<AbstractBullet> _bullets = new List<AbstractBullet>();
@@ -28,6 +28,7 @@ public class BulletController : MonoBehaviour
 
     public void Start()
     {
+        if (!isServer) return;
         for (int i = 0; i < 10; i++)
         {
             var bullet = Instantiate(_bullet, transform);

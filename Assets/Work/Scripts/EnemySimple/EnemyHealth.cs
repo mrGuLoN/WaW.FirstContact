@@ -27,7 +27,6 @@ public class EnemyHealth : AbstractHealth
 
     void Start()
     {
-        if (!isServer) return;
         _character = GetComponent<CharacterController>();
         _enemyControllerSM = GetComponent<EnemyControllerSM>();
         _currentHealth = _health;
