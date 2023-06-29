@@ -40,15 +40,16 @@ public class PlayerHealth : AbstractHealth
         _currentHealth -= damage;
         var blood = Instantiate(_blood, point, Quaternion.Euler(direction));
         blood.transform.forward = direction;
-        NetworkServer.Spawn(blood);
         direction = _thisTransform.TransformDirection(direction).normalized;
         _animator.SetFloat("DamageX", direction.x);
         _animator.SetFloat("DamageY", direction.z);
         _animator.SetTrigger("Damage");
+        if (isLocalPlayer)
         _health.text = _currentHealth.ToString();
         if (_currentHealth <= 0)
         {
-            _health.text = "Nice meat";
+            if (isLocalPlayer)
+                _health.text = "Nice meat";
             _playerController.enabled = false;
             _characterController.enabled = false;
             _animator.SetTrigger("Dead");

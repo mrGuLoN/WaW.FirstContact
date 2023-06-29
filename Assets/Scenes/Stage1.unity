@@ -802,6 +802,7 @@ GameObject:
   - component: {fileID: 1080469815}
   - component: {fileID: 1080469814}
   - component: {fileID: 1080469813}
+  - component: {fileID: 1080469816}
   m_Layer: 0
   m_Name: BulletController
   m_TagString: Untagged
@@ -826,6 +827,8 @@ MonoBehaviour:
   syncInterval: 0
   _bullet: {fileID: 4986728580544456466, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
   _bulletParrent: {fileID: 65498838}
+  _bullets: []
+  _liveBullet: []
 --- !u!114 &1080469814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,6 +861,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1080469816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080469812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 1080469815}
+  clientAuthority: 0
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
 --- !u!1 &1728314732
 GameObject:
   m_ObjectHideFlags: 0

@@ -66,6 +66,7 @@ namespace Enemy.StateMachine
 
         public void Hit()
         {
+            if (isServer)
             target.gameObject.GetComponent<AbstractHealth>().TakeDamage(damage, target.position + Vector3.up*1.6f, thisTransform.forward);
         }
 

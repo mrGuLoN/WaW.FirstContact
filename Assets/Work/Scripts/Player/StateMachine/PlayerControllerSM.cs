@@ -59,10 +59,11 @@ namespace Player.StateMachine
             EnemyController.instance.RemovePlayer(thisTransform);
         }
 
+        
         private void CmdRespawnGun()
         {
             firstGun = Instantiate(firstGun, _rightHandGunPoint.position, Quaternion.identity, _rightHandGunPoint);
-            NetworkServer.Spawn(firstGun.gameObject);
+            if (isServer)NetworkServer.Spawn(firstGun.gameObject);
         }
 
         public void EndReload()
