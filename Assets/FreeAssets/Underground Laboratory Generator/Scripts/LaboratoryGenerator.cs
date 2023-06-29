@@ -16,9 +16,11 @@ public class LaboratoryGenerator : NetworkBehaviour
     public Cell[] CellArena;
     public Cell[] CellStart;
 
+    [SerializeField] private Transform thisTransform;
     private List<Cell> _respawnCellList = new List<Cell>();
     private void Start()
     {
+        thisTransform = GetComponent<Transform>();
         if (arenaInt == 0) arenaInt = 3;
         if (GenerateOnStart && isServer) StartCoroutine(StartGeneration());
     }
@@ -28,7 +30,7 @@ public class LaboratoryGenerator : NetworkBehaviour
     {
         List<Transform> CreatedExits = new List<Transform>();
         Cell StartRoom = Instantiate(startLocation, Vector3.zero,
-            Quaternion.identity);
+            Quaternion.identity,thisTransform);
         NetworkServer.Spawn(StartRoom.gameObject);
         _respawnCellList.Add(StartRoom);
         for (int i = 0; i < StartRoom.Exits.Length; i++) CreatedExits.Add(StartRoom.Exits[i].transform);
@@ -45,18 +47,18 @@ public class LaboratoryGenerator : NetworkBehaviour
             if (roomsLeft > RoomCount - 4)
             {
                 selectedPrefab = Instantiate(CellStart[Random.Range(0, CellStart.Length)], Vector3.zero,
-                    Quaternion.identity);
+                    Quaternion.identity,thisTransform);
             }
             else if (roomsLeft != 1 && count!=arenaInt)
             {
                 selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
-                    Quaternion.identity);
+                    Quaternion.identity,thisTransform);
             }
             else
             {
                 count = 0;
                 selectedPrefab = Instantiate(CellArena[Random.Range(0, CellArena.Length)], Vector3.zero,
-                    Quaternion.identity);
+                    Quaternion.identity,thisTransform);
             }
             NetworkServer.Spawn(selectedPrefab.gameObject);
             _respawnCellList.Add(selectedPrefab);
@@ -110,7 +112,7 @@ public class LaboratoryGenerator : NetworkBehaviour
                 CreatedExits.Remove(selectedExit);
 
                 GameObject door = Instantiate(DoorPrefabs[Random.Range(0, DoorPrefabs.Length)],
-                    createdExit.transform.position, createdExit.transform.rotation);
+                    createdExit.transform.position, createdExit.transform.rotation,thisTransform);
                 NetworkServer.Spawn(door);
                 DestroyImmediate(createdExit.gameObject);
                 DestroyImmediate(selectedExit.gameObject);
@@ -128,7 +130,7 @@ public class LaboratoryGenerator : NetworkBehaviour
         // instead doors
         for (int i = 0; i < CreatedExits.Count; i++)
         {
-            GameObject door = Instantiate(InsteadDoor, CreatedExits[i].position, CreatedExits[i].rotation);
+            GameObject door = Instantiate(InsteadDoor, CreatedExits[i].position, CreatedExits[i].rotation,thisTransform);
             NetworkServer.Spawn(door);
             DestroyImmediate(CreatedExits[i].gameObject);
         }

@@ -39,57 +39,58 @@ public class EnemyHealth : AbstractHealth
     {
         CMDDamageEnemy(damage, point, direction);
     }
-    [ClientRpc]
-    public void DamageEnemy(float damage, Vector3 point, Vector3 direction)
-    {
-        Debug.Log("Mememe");
-        _currentHealth -= damage;
-        _speedMove = (_health - _currentHealth) / _runHealth;
-        _enemyControllerSM.speedMove = _speedMove;
-        _enemyControllerSM.animator.SetFloat("Health", _speedMove);
-        var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
-        blood.transform.forward = direction;
-        _enemyControllerSM.Damage();
-        
-        if (_currentHealth <= 0)
-        {
-            _character.enabled = false;
-            _enemyControllerSM.Dead();
-            OffDamageCollider();
-            StartCoroutine(SetStatic());
-        }
-    }
 
-    [Command(requiresAuthority = false)]
+    [Server]
+
     public void CMDDamageEnemy(float damage, Vector3 point, Vector3 direction)
     {
         Debug.Log("Bububu");
         _currentHealth -= damage;
         _speedMove = (_health - _currentHealth) / _runHealth;
         _enemyControllerSM.speedMove = _speedMove;
-        _enemyControllerSM.animator.SetFloat("Health", _speedMove);
-        var blood = Instantiate(_blood, point,Quaternion.Euler(direction));
-        blood.transform.forward = direction;
-        NetworkServer.Spawn(blood);
-        _enemyControllerSM.Damage();
-        
+        _animator.SetFloat("Health", _speedMove);
+        _animator.SetTrigger("Damage");
+        RpcDamageVisual( point,  direction);
         if (_currentHealth <= 0)
         {
             EnemyController.instance.RemoveEnemy(_enemyControllerSM);
             _character.enabled = false;
-            _enemyControllerSM.Dead();
+            _animator.SetTrigger("Dead");
             OffDamageCollider();
+            RpcDeadVisual();
             StartCoroutine(SetStatic());
         }
-
-        DamageEnemy(damage, point, direction);
     }
-    
-    
+
+    [ClientRpc]
+    private void RpcDamageVisual(Vector3 point,Vector3 direction)
+    {
+        _animator.SetFloat("Health", _speedMove);
+        var blood = Instantiate(_blood, point,Quaternion.Euler(direction), _thisTransform);
+        blood.transform.forward = direction;
+        _animator.SetTrigger("Damage");
+    }
+
+    [ClientRpc]
+    private void RpcDeadVisual()
+    {
+        _character.enabled = false;
+        _animator.SetTrigger("Dead");
+        OffDamageCollider();
+    }
+
 
     IEnumerator SetStatic()
     {
         yield return new WaitForSeconds(10f);
+        gameObject.isStatic = true;
+        _visual.isStatic = true;
+        RpcSetStatic();
+    }
+
+    [ClientRpc]
+private void RpcSetStatic()
+    {
         gameObject.isStatic = true;
         _visual.isStatic = true;
     }

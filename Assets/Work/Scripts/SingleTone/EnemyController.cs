@@ -28,13 +28,19 @@ public class EnemyController : NetworkBehaviour
     {
         if (!isServer) return;
         playerList.Add(player);
+       
     }
+
+   
 
     public void AddEnemy(EnemyControllerSM enemyControllerSm)
     {
         if (!isServer) return;
         _enemyControllerSmList.Add(enemyControllerSm);
+       
     }
+
+ 
 
     public void RemoveEnemy(EnemyControllerSM enemyControllerSm)
     {
@@ -43,22 +49,25 @@ public class EnemyController : NetworkBehaviour
         _enemyDeadListSkin.Add(enemyControllerSm);
     }
 
+   
+
 
     public void RemovePlayer(Transform player)
     {
         if (!isServer) return;
         playerList.Remove(player);
+      
         for (int i = 0; i < _enemyControllerSmList.Count; i++)
         {
             _enemyControllerSmList[i].ChangeState(_enemyControllerSmList[i].idle);
         }
     }
 
+
     private void FixedUpdate()
     {
         if (!isServer) return;
         CallBackAll();
-       
     }
     
     private void CallBackAll()

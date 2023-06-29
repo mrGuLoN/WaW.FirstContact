@@ -25,7 +25,6 @@ namespace Enemy.StateMachine
 
         private void Awake()
         {
-            if (!isServer)
             EnemyController.instance.AddEnemy(this);
         }
 
@@ -41,29 +40,6 @@ namespace Enemy.StateMachine
             speedAnimation = Random.Range(0.95f, 1.05f);
             animator.SetFloat("SpeedMovement", speedAnimation);
             ChangeState(idle);
-        }
-
-        public void Dead()
-        {
-            animator.SetTrigger("Dead");
-            CMDDead();
-        }
-        [ClientRpc]
-        public void CMDDead()
-        {
-            animator.SetTrigger("Dead");
-        }
-
-        public void Damage()
-        {
-            animator.SetTrigger("Damage");
-            CMDDamage();
-        }
-
-        [ClientRpc]
-        public void CMDDamage()
-        {
-            animator.SetTrigger("Damage");
         }
 
         public void CheckDistanse()

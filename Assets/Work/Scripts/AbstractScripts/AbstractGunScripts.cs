@@ -58,10 +58,13 @@ public class AbstractGunScripts : NetworkBehaviour
         _ammo.text = _currentMagazine + " / " + allAmmo;
         for (int i = 0; i < _pelvis; i++)
         {
-            _bullet.damage = _damage;
-            _bullet.speed = _speed;
-            BulletController.instance.AddBullet(_damage, _speed, _firePoint, _scram);
+            Fire();
         }
+    }
+    [Command(requiresAuthority = false)]
+    private void Fire()
+    {
+        BulletController.instance.AddBullet(_damage, _speed, _firePoint, _scram);
     }
 
     public void Reloading()

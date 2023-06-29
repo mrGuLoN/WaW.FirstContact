@@ -6,11 +6,12 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BulletController : MonoBehaviour
+public class BulletController : NetworkBehaviour
 {
     [SerializeField] private AbstractBullet _bullet;
-    private List<AbstractBullet> _bullets = new List<AbstractBullet>();
-    private List<AbstractBullet> _liveBullet = new();
+    [SerializeField] private Transform _bulletParrent;
+    [SerializeField] private List<AbstractBullet> _bullets = new List<AbstractBullet>();
+    [SerializeField] private List<AbstractBullet> _liveBullet = new();
     private float _distance;
     public static BulletController instance = null;
 
@@ -26,23 +27,36 @@ public class BulletController : MonoBehaviour
         }
     }
 
+   
     public void Start()
+    {
+        CmdSpawnBullet();
+    }
+
+    [Command (requiresAuthority = false)]
+    private void CmdSpawnBullet()
+    {
+        SpawnBulletPool();
+    }
+
+    [Server]
+    private void SpawnBulletPool()
     {
         for (int i = 0; i < 10; i++)
         {
-            var bullet = Instantiate(_bullet, transform);
+            var bullet = Instantiate(_bullet, _bulletParrent);
+            NetworkServer.Spawn(bullet.gameObject);
             bullet.gameObject.SetActive(false);
             _bullets.Add(bullet);
-           // NetworkServer.Spawn(bullet.gameObject);
-        }
-       
+        } 
     }
-
+    
+    
+[Server]
     public void AddBullet(float damage, float speed, Transform firePoint, float scram)
     {
         for (int i =0; i <= _bullets.Count;i++)
         {
-            Debug.Log("FFFFirrreeee!!!!");
             if (!_bullets[i].gameObject.activeSelf)
             {
                 _bullets[i].speed = speed;
@@ -69,15 +83,28 @@ public class BulletController : MonoBehaviour
             }
         }  
     }
-
+    [Server]
     public void DestroyBullet(AbstractBullet bullet)
     {
         bullet.transform.gameObject.SetActive(false);
         _liveBullet.Remove(bullet);
         bullet.thisTR.position = Vector3.zero;
     }
-
+   
     public void FixedUpdate()
+    {
+        if (!isServer) return;
+        CmdBulletFly();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdBulletFly()
+    {
+        BulletFly();
+    }
+
+    [ClientRpc]
+    private void BulletFly()
     {
         if (_liveBullet.Count > 0)
         {
@@ -96,7 +123,7 @@ public class BulletController : MonoBehaviour
                         _liveBullet[i].damageMask))
                 {
                     if (hit.transform.gameObject.TryGetComponent(out damageController))
-                    damageController.TakeDamage(_liveBullet[i].damage,hit.point,_liveBullet[i].thisTR.forward);
+                        damageController.TakeDamage(_liveBullet[i].damage,hit.point,_liveBullet[i].thisTR.forward);
                     DestroyBullet(_liveBullet[i]);
                     i--;
                 }

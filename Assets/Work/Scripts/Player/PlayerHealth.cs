@@ -33,7 +33,7 @@ public class PlayerHealth : AbstractHealth
         _health.text = _currentHealth.ToString();
     }
 
-   
+   [ClientRpc]
     public override void TakeDamage(float damage, Vector3 point, Vector3 direction)
     {
         if (_currentHealth < 0) return;
