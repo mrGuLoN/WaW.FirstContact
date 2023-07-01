@@ -1538,6 +1538,7 @@ GameObject:
   - component: {fileID: 2906065323127592432}
   - component: {fileID: 1370229661544609970}
   - component: {fileID: 7706209885523868050}
+  - component: {fileID: 8276679991665585387}
   - component: {fileID: 5229308607401381356}
   - component: {fileID: 5669090630467243603}
   - component: {fileID: 5433848814748991124}
@@ -1567,7 +1568,7 @@ Transform:
   - {fileID: 674585553689262216}
   - {fileID: 7738843524438309539}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2906065323127592432
 Animator:
@@ -1638,9 +1639,29 @@ MonoBehaviour:
   _rightHandGunPoint: {fileID: 4142473813702344775}
   _specialObj: {fileID: 5737836552539623348, guid: 19e6cd9208049534788a81fb828ad2f8,
     type: 3}
+  bulletController: {fileID: 8276679991665585387}
   characterController: {fileID: 0}
   animator: {fileID: 0}
   thisTransform: {fileID: 0}
+--- !u!114 &8276679991665585387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149112797712901371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b96310f832d1947906ff62e066a5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  _bullet: {fileID: 8481725907149599675, guid: 3309823da0421aa4199fc81237c3fb9f, type: 3}
+  _bulletParrent: {fileID: 2080865989238813055}
+  _bullets: []
+  _liveBullet: []
 --- !u!143 &5229308607401381356
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1729,10 +1750,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0.02
-  clientAuthority: 0
+  clientAuthority: 1
   animator: {fileID: 2906065323127592432}
 --- !u!1 &6189104889876969201
 GameObject:

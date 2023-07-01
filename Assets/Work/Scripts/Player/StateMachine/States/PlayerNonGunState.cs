@@ -29,6 +29,7 @@ namespace Player.StateMachine.States
 
         public override void UpdatePhysics()
         {
+            _playerControllerSm.bulletController.UpdateBulletPosition();
             _movementVector = new Vector3(_playerControllerSm.movementJoyStick.Horizontal, 0,
                 _playerControllerSm.movementJoyStick.Vertical);
             if (_playerControllerSm.fireJoyStick.Horizontal!=0 ||_playerControllerSm.fireJoyStick.Horizontal!=0)

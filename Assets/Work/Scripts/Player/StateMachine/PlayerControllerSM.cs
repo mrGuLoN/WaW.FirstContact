@@ -20,7 +20,7 @@ namespace Player.StateMachine
         [SerializeField] private Button _use, _special;
         [SerializeField] private Transform _rightHandGunPoint;
         [SerializeField] private GameObject _specialObj;
-
+        public BulletController bulletController;
         [HideInInspector] public PlayerNonGunState nonGunState;
         [HideInInspector] public PlayerGunState gunState;
         [HideInInspector] public CharacterController characterController;
@@ -63,6 +63,7 @@ namespace Player.StateMachine
         private void CmdRespawnGun()
         {
             firstGun = Instantiate(firstGun, _rightHandGunPoint.position, Quaternion.identity, _rightHandGunPoint);
+            firstGun.bulletController = bulletController;
             if (isServer)NetworkServer.Spawn(firstGun.gameObject);
         }
 
@@ -88,7 +89,7 @@ namespace Player.StateMachine
             return Physics.Raycast(thisTransform.position + Vector3.up, direction, 0.5f, _stage);
         }
 
-        
+       
         public void CmdFire()
         {
             if (isLocalPlayer)

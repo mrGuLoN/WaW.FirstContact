@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 public class AbstractGunScripts : NetworkBehaviour
 {
     public Animator animator;
+    public BulletController bulletController;
     
     [SerializeField] protected ParticleSystem _splash;
     [SerializeField] protected AnimatorOverrideController _gunController;
@@ -46,7 +47,6 @@ public class AbstractGunScripts : NetworkBehaviour
         _ammo.text = _currentMagazine + " / " + allAmmo;
         
     }
-
     public virtual void CmdFire()
     {
         if (_currentMagazine <= 0)
@@ -61,10 +61,9 @@ public class AbstractGunScripts : NetworkBehaviour
             Fire();
         }
     }
-    [Command(requiresAuthority = false)]
     private void Fire()
     {
-        BulletController.instance.AddBullet(_damage, _speed, _firePoint, _scram);
+        bulletController.AddBullet(_damage, _speed, _firePoint, _scram);
     }
 
     public void Reloading()

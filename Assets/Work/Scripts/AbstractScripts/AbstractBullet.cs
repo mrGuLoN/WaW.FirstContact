@@ -12,4 +12,5 @@ public class AbstractBullet : NetworkBehaviour
     public Vector3 previousePosition;
     public TrailRenderer trailRenderer;
     public LayerMask damageMask;
+    public BulletController bulletController;
 }

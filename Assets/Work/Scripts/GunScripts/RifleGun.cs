@@ -10,6 +10,8 @@ public class RifleGun : AbstractGunScripts
         Debug.Log("RELOAD");
         animator = Animator;
     }
+    
+    
     public override void CmdFire()
     {
         _splash.Play();

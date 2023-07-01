@@ -10,6 +10,8 @@ namespace Player.StateMachine.States
         
         private PlayerControllerSM _playerControllerSm;
         private Vector3 _targetPoint, _directional;
+        private BulletController _bulletController;
+        
 
         public PlayerGunState(PlayerControllerSM _stateMachine) : base("PlayerPistolState", _stateMachine)
         {
@@ -39,6 +41,7 @@ namespace Player.StateMachine.States
 
         public override void UpdatePhysics()
         {
+            _playerControllerSm.bulletController.UpdateBulletPosition();
             _loocVector = new Vector3(_playerControllerSm.fireJoyStick.Horizontal, 0,
                 _playerControllerSm.fireJoyStick.Vertical);
             _movementVector = new Vector3(_playerControllerSm.movementJoyStick.Horizontal, 0,
