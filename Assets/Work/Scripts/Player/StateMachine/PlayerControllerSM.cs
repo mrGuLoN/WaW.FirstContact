@@ -15,7 +15,7 @@ namespace Player.StateMachine
         public Joystick fireJoyStick;
         public Toggle secondFire;
         public AbstractGunScripts firstGun;
-
+        
         [SerializeField] private LayerMask _stage;
         [SerializeField] private Button _use, _special;
         [SerializeField] private Transform _rightHandGunPoint;
@@ -29,9 +29,10 @@ namespace Player.StateMachine
 
         private void Awake()
         {
-            CmdRespawnGun();
+            //CmdRespawnGun();
             thisTransform = GetComponent<Transform>();
             EnemyController.instance.AddPlayer(thisTransform);
+            
         }
 
         private void Start()
@@ -51,6 +52,7 @@ namespace Player.StateMachine
             _special.onClick.AddListener(Special);
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
+            
             ChangeState(nonGunState);
         }
 
@@ -65,6 +67,11 @@ namespace Player.StateMachine
             firstGun = Instantiate(firstGun, _rightHandGunPoint.position, Quaternion.identity, _rightHandGunPoint);
             firstGun.bulletController = bulletController;
             if (isServer)NetworkServer.Spawn(firstGun.gameObject);
+        }
+
+        private void FixedUpdate()
+        {
+            if (isLocalPlayer) bulletController.BulletFly();
         }
 
         public void EndReload()

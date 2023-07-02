@@ -18,7 +18,7 @@ public class AbstractGunScripts : NetworkBehaviour
     [SerializeField] private protected float _damage;
     [SerializeField] private protected float _speed;
     [SerializeField] private protected float _scram;
-    [SerializeField] private protected Transform _firePoint;
+    [SerializeField] public Transform _firePoint;
     [SerializeField] public int magazine;
     [SerializeField] public int allAmmo;
     [SerializeField] private AbstractBullet _bullet;
@@ -45,7 +45,6 @@ public class AbstractGunScripts : NetworkBehaviour
     {
         allAmmo = this.magazine * magazineUp;
         _ammo.text = _currentMagazine + " / " + allAmmo;
-        
     }
     public virtual void CmdFire()
     {
@@ -61,10 +60,12 @@ public class AbstractGunScripts : NetworkBehaviour
             Fire();
         }
     }
+
     private void Fire()
     {
-        bulletController.AddBullet(_damage, _speed, _firePoint, _scram);
+        bulletController.FireBullet(_damage, _speed , _scram);
     }
+    
 
     public void Reloading()
     {

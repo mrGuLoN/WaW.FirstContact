@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
@@ -10,7 +11,23 @@ public class AbstractBullet : NetworkBehaviour
     public float speed;
     public Transform thisTR;
     public Vector3 previousePosition;
-    public TrailRenderer trailRenderer;
+    public GameObject trailRenderer;
     public LayerMask damageMask;
     public BulletController bulletController;
+
+    private void Start()
+    {
+        thisTR = GetComponent<Transform>();
+        TrailOff();
+    }
+   
+    public virtual void TrailOn()
+    {
+        trailRenderer.SetActive(true);
+    }
+    public virtual void TrailOff()
+    {
+        trailRenderer.SetActive(false);
+
+    }
 }

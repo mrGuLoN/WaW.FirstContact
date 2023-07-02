@@ -47,13 +47,14 @@ namespace Enemy.StateMachine
             for (int i = 0; i < EnemyController.instance.playerList.Count; i++)
             {
                 if (Vector3.Distance(thisTransform.position,
-                        EnemyController.instance.playerList[i].transform.position) > 15)
+                        EnemyController.instance.playerList[i].transform.position) < 15)
                 {
-                    meshRenderer.enabled = false;
+                    meshRenderer.enabled = true;
+                    break;
                 }
                 else
                 {
-                    meshRenderer.enabled = true;
+                    meshRenderer.enabled = false;
                 }
             }
         }

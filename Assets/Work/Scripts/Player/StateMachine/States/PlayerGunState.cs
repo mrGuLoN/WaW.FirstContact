@@ -41,7 +41,6 @@ namespace Player.StateMachine.States
 
         public override void UpdatePhysics()
         {
-            _playerControllerSm.bulletController.UpdateBulletPosition();
             _loocVector = new Vector3(_playerControllerSm.fireJoyStick.Horizontal, 0,
                 _playerControllerSm.fireJoyStick.Vertical);
             _movementVector = new Vector3(_playerControllerSm.movementJoyStick.Horizontal, 0,

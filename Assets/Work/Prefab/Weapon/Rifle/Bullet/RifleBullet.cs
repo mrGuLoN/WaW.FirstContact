@@ -8,24 +8,46 @@ public class RifleBullet : AbstractBullet
     // Start is called before the first frame update
     void OnEnable()
     {
-        if (isServer)
-        {
-            gameObject.GetComponent<TrailRenderer>().enabled = false;
-            return;
-        }
-        StartCoroutine(Destroy());
+        TrailOff();
     }
 
-    IEnumerator Destroy()
+   
+  
+    public override void TrailOn()
     {
-        yield return new WaitForSeconds(15f);
-        this.gameObject.SetActive(false);
-        bulletController.DestroyBullet(this);
+        trailRenderer.SetActive(true);
+        CmdTrailOn();
+    }
+    [Command(requiresAuthority = false)]
+    public void CmdTrailOn()
+    {
+        trailRenderer.SetActive(true);
+        RpcTrailOn();
     }
 
-    // Update is called once per frame
-    void Update()
+    [ClientRpc]
+    private void RpcTrailOn()
     {
-        
+        trailRenderer.SetActive(true);
+    }
+   
+    public override void TrailOff()
+    {
+        trailRenderer.SetActive(false);
+        CmdTrailOff();
+    }
+    [Command(requiresAuthority = false)]
+
+    public  void CmdTrailOff()
+    {
+        trailRenderer.SetActive(false);
+        RpcTrailOff();
+    }
+
+    [ClientRpc]
+    public  void RpcTrailOff()
+    {
+        trailRenderer.SetActive(false);
+
     }
 }

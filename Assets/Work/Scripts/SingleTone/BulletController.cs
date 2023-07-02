@@ -1,138 +1,161 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using Mirror;
-using Unity.Mathematics;
+using Player.StateMachine;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class BulletController : NetworkBehaviour
 {
-    [SerializeField] private GameObject _bullet;
-    [SerializeField] private Transform _bulletParrent;
-    [SerializeField] private List<AbstractBullet> _bullets = new List<AbstractBullet>();
-    [SerializeField] private List<AbstractBullet> _liveBullet = new();
-    private float _distance;
-    public static BulletController instance = null;
+    [SerializeField] private Transform firePoint, thisTR;
+    [SerializeField] private AbstractBullet _bullet;
+    [SerializeField] private LayerMask _damage;
+    [SerializeField] private List<AbstractBullet> _sleepingBullet = new ();
+    [SerializeField] private List<AbstractBullet> _wakeUpBullet = new();
+    private Vector3 _previouseposition;
     
 
-    [Command]
-    public void Start()
+    void Start()
     {
         if (!isLocalPlayer) return;
-        for (int i = 20; i > 0; i--)
+        CmdRespawnBullet();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdRespawnBullet()
+    {
+        for (int i = 0; i < 5; i++)
         {
-            var buben = Instantiate(_bullet, null);
-            buben.GetComponent<AbstractBullet>().bulletController = this;
-            _bullets.Add(buben.GetComponent<AbstractBullet>());
-           // NetworkServer.Spawn(buben);
+            var bullet = Instantiate(_bullet, null);
+            NetworkServer.Spawn(bullet.gameObject);
+            _sleepingBullet.Add(bullet);
+            bullet.TrailOff();
+            BulletOff(bullet);
+            AddToList(bullet);
         }
-    }
-    public void AddBullet(float damage, float speed, Transform firePoint, float scram)
-    {
-        CmdAddBullet(damage, speed, firePoint, scram);
-    }
-
-   
-    public void CmdAddBullet(float damage, float speed, Transform firePoint, float scram)
-    {
-        for (int i = 0; i < _bullets.Count; i++)
-        {
-            if (_bullets[i].gameObject.activeSelf == false)
-            {
-                _bullets[i].gameObject.SetActive(true);
-                _bullets[i].speed = speed;
-                _bullets[i].damage = damage;
-                _bullets[i].thisTR.position = firePoint.position;
-                _bullets[i].thisTR.forward = firePoint.forward +
-                                             new Vector3(Random.Range(-1 * scram, scram), 0,
-                                                 Random.Range(-1 * scram, scram));
-                _bullets[i].previousePosition = firePoint.position;
-                _liveBullet.Add(_bullets[i]);
-                RpcAddBullet(_bullets[i]);
-                return;
-            }
-        }
-
-        var bulls = Instantiate(_bullet, firePoint.position, Quaternion.identity, this.transform);
-        var bullsAbstract = bulls.GetComponent<AbstractBullet>();
-        _bullets.Add(bullsAbstract);
-        NetworkServer.Spawn(bulls);
-        bullsAbstract.speed = speed;
-        bullsAbstract.damage = damage;
-        bullsAbstract.bulletController = this;
-        bullsAbstract.thisTR.position = firePoint.position;
-        bullsAbstract.thisTR.forward = firePoint.forward +
-                                       new Vector3(Random.Range(-1 * scram, scram), 0, Random.Range(-1 * scram, scram));
-        bullsAbstract.previousePosition = firePoint.position;
-        _liveBullet.Add(bullsAbstract);
-        _bullets.Add(bullsAbstract);
-        RpcAddBullet(bullsAbstract);
-    }
-
-    
-    public void RpcAddBullet(AbstractBullet gameObject)
-    {
-        gameObject.trailRenderer.enabled = true;
-        gameObject.gameObject.SetActive(true);
-    }
-
-    public void DestroyBullet(AbstractBullet bullet)
-    {
-        CmdDestroyBullet(bullet);
-    }
-    [Command]
-    public void CmdDestroyBullet(AbstractBullet bullet)
-    {
-        _liveBullet.Remove(bullet);
-        bullet.gameObject.SetActive(false);
-        bullet.thisTR.position = transform.position;
-        RpcDestroyBullet(bullet);
     }
 
     [ClientRpc]
-    private void RpcDestroyBullet(AbstractBullet bullet)
+    private void BulletOff(AbstractBullet bullet)
     {
-        bullet.gameObject.SetActive(false);
-        bullet.thisTR.position = transform.position;
+        bullet.TrailOff();
     }
-    
-    [Command]
-    public void UpdateBulletPosition()
-    {
-        if (!isServer) return;
-        for (int i = 0; i < _bullets.Count; i++)
-        {
-            _bullets[i].previousePosition = _bullets[i].thisTR.position;
-            _bullets[i].thisTR.position += _bullets[i].thisTR.forward * _bullets[i].speed * Time.deltaTime;
-        }
-
-        for (int i = 0; i < _liveBullet.Count; i++)
-        {
-            var newPosition = _liveBullet[i].thisTR.position;
-            _distance = Vector3.Distance(_liveBullet[i].thisTR.position, _liveBullet[i].previousePosition);
-            RaycastHit hit;
-            AbstractDamageCollider damageController;
-            if (Physics.Raycast(_liveBullet[i].thisTR.position, -1 * _liveBullet[i].thisTR.forward, out hit, _distance,
-                    _liveBullet[i].damageMask))
-            {
-                if (hit.transform.gameObject.TryGetComponent(out damageController))
-                    damageController.TakeDamage(_liveBullet[i].damage,hit.point,_liveBullet[i].thisTR.forward);
-                RpcBulletMove( _liveBullet[i].thisTR, hit.point);
-                CmdDestroyBullet(_liveBullet[i]);
-                i--;
-            }
-            else
-            {
-                RpcBulletMove( _liveBullet[i].thisTR, newPosition);
-            }
-        }
-    }
-    
     [ClientRpc]
-    private void RpcBulletMove(Transform thisTR, Vector3 newPosition)
+    private void AddToList(AbstractBullet bullet)
     {
-        thisTR.position = newPosition;
+        _sleepingBullet.Add(bullet);
+        bullet.TrailOff();
     }
+
+    public void FireBullet(float damage, float speed, float scram)
+    {
+        if (!isLocalPlayer) return;
+        if (_sleepingBullet.Count <= 0)
+        {
+            CmdRespawnBullet();
+        }
+        CmdAddBullet(_sleepingBullet[0],damage,speed,scram);
+        CmdRestartPosition(_sleepingBullet[0]);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdAddBullet(AbstractBullet bullet,float damage, float speed, float scram)
+    {
+        _wakeUpBullet.Add(bullet);
+        _sleepingBullet.Remove(bullet);
+        bullet.damage = damage;
+        bullet.speed = speed;
+        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.forward = thisTR.forward +
+                                new Vector3(Random.Range(-1 * scram, scram), 0, Random.Range(-1 * scram, scram));
+        RpcAddBullet(bullet, damage,  speed,  scram);
+    }
+
+    [ClientRpc]
+    private void RpcAddBullet(AbstractBullet bullet,float damage, float speed, float scram)
+    {
+        _wakeUpBullet.Add(bullet);
+        _sleepingBullet.Remove(bullet);
+        bullet.damage = damage;
+        bullet.speed = speed;
+        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.forward = thisTR.forward + new Vector3(Random.Range(-1*scram,scram),0,Random.Range(-1*scram,scram));
+    }
+
+    public void BulletFly()
+    {
+        if (!isLocalPlayer || _wakeUpBullet.Count <=0) return;
+        for (int i = 0; i < _wakeUpBullet.Count; i++)
+        {
+            CmdTransformBullet(_wakeUpBullet[i]);
+        }
+        
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdTransformBullet(AbstractBullet bullet)
+    {
+        _previouseposition = bullet.thisTR.position;
+        bullet.thisTR.position += bullet.thisTR.forward * bullet.speed * Time.deltaTime;
+        CmdCheckWallEnemy(bullet, _previouseposition);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdCheckWallEnemy(AbstractBullet bullet,Vector3 pPos)
+    {
+        Vector3 newPosition;
+        var distance = Vector3.Distance(bullet.thisTR.position, pPos);
+        RaycastHit hit;
+        if (Physics.Raycast(bullet.thisTR.position, -1*bullet.thisTR.forward, out hit ,distance, _damage))
+        {
+            _sleepingBullet.Add(bullet);
+            _wakeUpBullet.Remove(bullet);
+            bullet.TrailOff();
+            RpcReworkData(bullet);
+            newPosition = hit.point;
+            RpcTransformBullet(newPosition, bullet);
+            Debug.Log(hit.transform.gameObject);
+            AbstractDamageCollider plc;
+            if (hit.transform.gameObject.TryGetComponent<AbstractDamageCollider>(out plc))
+            {
+                plc.TakeDamage(_bullet.damage,hit.point,bullet.thisTR.forward);
+            }
+        }
+        else
+        {
+            newPosition = bullet.thisTR.position;
+            RpcTransformBullet(newPosition, bullet);
+        }
+        
+    }
+
+    [ClientRpc]
+    private void RpcTransformBullet(Vector3 newPosition,AbstractBullet bullet)
+    {
+        bullet.TrailOn();
+        bullet.thisTR.position = newPosition;
+    }
+
+
+    [ClientRpc]
+    private void RpcReworkData(AbstractBullet bullet)
+    {
+        _sleepingBullet.Add(bullet);
+        _wakeUpBullet.Remove(bullet);
+        bullet.TrailOff();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdRestartPosition(AbstractBullet bullet)
+    {
+        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.forward = thisTR.forward;
+        RpcRestartPosition(bullet);
+    }
+
+    [ClientRpc]
+    private void RpcRestartPosition(AbstractBullet bullet)
+    {
+        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.forward = thisTR.forward;
+    }
+    
 }
