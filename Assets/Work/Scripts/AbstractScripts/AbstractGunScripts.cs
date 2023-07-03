@@ -55,15 +55,14 @@ public class AbstractGunScripts : MonoBehaviour
         }
         _currentMagazine--;
         _ammo.text = _currentMagazine + " / " + allAmmo;
-        for (int i = 0; i < _pelvis; i++)
-        {
+        
             Fire();
-        }
+        
     }
 
     private void Fire()
     {
-        bulletController.FireBullet(_damage, _speed , _scram);
+        bulletController.FireBullet(_pelvis,_damage, _speed , _scram);
     }
     
 

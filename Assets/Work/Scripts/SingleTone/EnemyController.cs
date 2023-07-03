@@ -12,6 +12,9 @@ public class EnemyController : NetworkBehaviour
 
     public static EnemyController instance = null;
 
+    private int _bossCount;
+    private Animator _door;
+
     void Awake()
     {
         if (instance == null)
@@ -22,6 +25,27 @@ public class EnemyController : NetworkBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void AddBoss()
+    {
+        if (!isServer) return;
+        _bossCount++;
+    }
+    public void RemuveBoss()
+    {
+        if (!isServer) return;
+        _bossCount--;
+        if (_bossCount <= 0)
+        {
+            _door.SetTrigger("Open");
+        }
+    }
+
+    public void AddDoor(Animator ani)
+    {
+        if (!isServer) return;
+        _door = ani;
     }
 
     public void AddPlayer(Transform player)

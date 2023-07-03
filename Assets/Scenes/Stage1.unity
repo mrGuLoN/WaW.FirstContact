@@ -239,26 +239,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4761518335416530736, guid: 1a96bd7fa71684c408efc8db854e1856,
+    - target: {fileID: 3009134107556344290, guid: 1a96bd7fa71684c408efc8db854e1856,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4761518335416530736, guid: 1a96bd7fa71684c408efc8db854e1856,
+      propertyPath: choose1
+      value: 
+      objectReference: {fileID: 73017266}
+    - target: {fileID: 3009134107556344290, guid: 1a96bd7fa71684c408efc8db854e1856,
         type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4761518335416530736, guid: 1a96bd7fa71684c408efc8db854e1856,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 209.77002
-      objectReference: {fileID: 0}
-    - target: {fileID: 4761518335416530736, guid: 1a96bd7fa71684c408efc8db854e1856,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -123.119995
-      objectReference: {fileID: 0}
+      propertyPath: choose2
+      value: 
+      objectReference: {fileID: 73017265}
     - target: {fileID: 8255605998106672424, guid: 1a96bd7fa71684c408efc8db854e1856,
         type: 3}
       propertyPath: m_Name
@@ -269,6 +259,30 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a96bd7fa71684c408efc8db854e1856, type: 3}
+--- !u!114 &73017265 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8888647354784504338, guid: 1a96bd7fa71684c408efc8db854e1856,
+    type: 3}
+  m_PrefabInstance: {fileID: 73017264}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &73017266 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7835240821338123764, guid: 1a96bd7fa71684c408efc8db854e1856,
+    type: 3}
+  m_PrefabInstance: {fileID: 73017264}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &222007213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1138,12 @@ PrefabInstance:
       propertyPath: serverOnly
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4776045041480667475, guid: 262a1f35de4840c4e935479a7ea6f946,
+        type: 3}
+      propertyPath: CellBoss
+      value: 
+      objectReference: {fileID: 1061785686279208022, guid: 8416e007f27b97b4eb41802d47d13d39,
+        type: 3}
     - target: {fileID: 4776045041480667475, guid: 262a1f35de4840c4e935479a7ea6f946,
         type: 3}
       propertyPath: RoomCount

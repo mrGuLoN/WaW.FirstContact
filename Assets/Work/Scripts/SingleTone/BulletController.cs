@@ -47,7 +47,7 @@ public class BulletController : NetworkBehaviour
         bullet.TrailOff();
     }
 
-    public void FireBullet(float damage, float speed, float scram)
+    public void FireBullet(int pellet, float damage, float speed, float scram)
     {
         if (!isLocalPlayer) return;
         if (_sleepingBullet.Count <= 0)
@@ -55,26 +55,30 @@ public class BulletController : NetworkBehaviour
             CmdRespawnBullet(firePoint.position);
         }
 
-        CmdAddBullet(_sleepingBullet[0], damage, speed, scram, firePoint.position);
-        CmdRestartPosition(_sleepingBullet[0], firePoint.position);
+        for (int i = 0; i < pellet; i++)
+        {
+            CmdAddBullet(_sleepingBullet[0], damage, speed, scram, firePoint.position);
+            CmdRestartPosition(_sleepingBullet[0], firePoint.position);
+        }
     }
 
     [Command(requiresAuthority = false)]
     private void CmdAddBullet(AbstractBullet bullet, float damage, float speed, float scram, Vector3 position)
     {
-        _wakeUpBullet.Add(bullet);
+        /*_wakeUpBullet.Add(bullet);
         _sleepingBullet.Remove(bullet);
         bullet.damage = damage;
         bullet.speed = speed;
         bullet.thisTR.position = position;
         bullet.thisTR.forward = thisTR.forward +
-                                new Vector3(Random.Range(-1 * scram, scram), 0, Random.Range(-1 * scram, scram));
+                                new Vector3(Random.Range(-1 * scram, scram), 0, Random.Range(-1 * scram, scram));*/
         RpcAddBullet(bullet, damage, speed, scram, position);
     }
 
     [ClientRpc]
     private void RpcAddBullet(AbstractBullet bullet, float damage, float speed, float scram, Vector3 position)
     {
+        
         _wakeUpBullet.Add(bullet);
         _sleepingBullet.Remove(bullet);
         bullet.damage = damage;
@@ -113,13 +117,11 @@ public class BulletController : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(bullet.thisTR.position, -1 * bullet.thisTR.forward, out hit, distance, _damage))
         {
-            _sleepingBullet.Add(bullet);
-            _wakeUpBullet.Remove(bullet);
+           /* OffBullet(bullet);*/
             bullet.TrailOff();
             RpcReworkData(bullet);
             newPosition = hit.point;
             RpcTransformBulletEnd(newPosition, bullet);
-            Debug.Log(hit.transform.gameObject);
             AbstractDamageCollider plc;
             if (hit.transform.gameObject.TryGetComponent<AbstractDamageCollider>(out plc))
             {
@@ -131,6 +133,13 @@ public class BulletController : NetworkBehaviour
             newPosition = bullet.thisTR.position;
             RpcTransformBullet(bullet, newPosition);
         }
+    }
+
+
+    private void OffBullet(AbstractBullet bullet)
+    {
+        _sleepingBullet.Add(bullet);
+        _wakeUpBullet.Remove(bullet);
     }
 
     [ClientRpc]
@@ -160,8 +169,8 @@ public class BulletController : NetworkBehaviour
     [Command(requiresAuthority = false)]
     private void CmdRestartPosition(AbstractBullet bullet, Vector3 position)
     {
-        bullet.thisTR.position = position;
-        bullet.thisTR.forward = thisTR.forward;
+        /*bullet.thisTR.position = position;
+        bullet.thisTR.forward = thisTR.forward;*/
         RpcRestartPosition(bullet, position);
     }
 

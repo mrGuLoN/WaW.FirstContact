@@ -52,23 +52,8 @@ namespace Player.StateMachine
             _special.onClick.AddListener(Special);
             _use = CanvasController.instance.useButton;
             _use.onClick.AddListener(Use);
-            
             ChangeState(nonGunState);
         }
-
-        private void OnDestroy()
-        {
-            EnemyController.instance.RemovePlayer(thisTransform);
-        }
-
-        
-        private void CmdRespawnGun()
-        {
-            firstGun = Instantiate(firstGun, _rightHandGunPoint.position, Quaternion.identity, _rightHandGunPoint);
-            firstGun.bulletController = bulletController;
-            if (isServer)NetworkServer.Spawn(firstGun.gameObject);
-        }
-
         private void FixedUpdate()
         {
             if (isLocalPlayer) bulletController.BulletFly();

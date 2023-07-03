@@ -15,6 +15,7 @@ public class LaboratoryGenerator : NetworkBehaviour
     public Cell[] CellPrefabs;
     public Cell[] CellArena;
     public Cell[] CellStart;
+    public Cell CellBoss;
 
     [SerializeField] private Transform thisTransform;
     private List<Cell> _respawnCellList = new List<Cell>();
@@ -52,6 +53,11 @@ public class LaboratoryGenerator : NetworkBehaviour
             else if (roomsLeft != 1 && count!=arenaInt)
             {
                 selectedPrefab = Instantiate(CellPrefabs[Random.Range(0, CellPrefabs.Length)], Vector3.zero,
+                    Quaternion.identity,thisTransform);
+            }
+            else if (roomsLeft == 1)
+            {
+                selectedPrefab = Instantiate(CellBoss, Vector3.zero,
                     Quaternion.identity,thisTransform);
             }
             else
