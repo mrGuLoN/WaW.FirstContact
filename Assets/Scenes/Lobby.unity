@@ -2524,28 +2524,33 @@ PrefabInstance:
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: sendRate
-      value: 120
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 3618069905901657317, guid: 12366a7b313d2894fb71b34f0bc5c08a,
+      objectReference: {fileID: 7384709185028902946, guid: 12366a7b313d2894fb71b34f0bc5c08a,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: networkAddress
-      value: 192.168.0.107
+      value: 192.168.1.172
+      objectReference: {fileID: 0}
+    - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
+        type: 3}
+      propertyPath: autoStartServerBuild
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: autoConnectClientBuild
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.size
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
@@ -2593,37 +2598,37 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnPrefabs.Array.data[7]
       value: 
-      objectReference: {fileID: 3911060234902575621, guid: 468fa149c8331b743aae7bb70b00432b,
+      objectReference: {fileID: 8481725907149599675, guid: 3309823da0421aa4199fc81237c3fb9f,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.data[8]
       value: 
-      objectReference: {fileID: 8481725907149599675, guid: 3309823da0421aa4199fc81237c3fb9f,
+      objectReference: {fileID: 6929315166490463990, guid: e993267f54adc0d429b7ebbd9c860d72,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.data[9]
       value: 
-      objectReference: {fileID: 6929315166490463990, guid: e993267f54adc0d429b7ebbd9c860d72,
+      objectReference: {fileID: 5172858915992025693, guid: d10781be3878d1f4aa1264a737d65f52,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.data[10]
       value: 
-      objectReference: {fileID: 5172858915992025693, guid: d10781be3878d1f4aa1264a737d65f52,
+      objectReference: {fileID: 837689212641272904, guid: 6d5c0a5d397408c4199351e7fdc916c1,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.data[11]
       value: 
-      objectReference: {fileID: 837689212641272904, guid: 6d5c0a5d397408c4199351e7fdc916c1,
+      objectReference: {fileID: 32682241498739786, guid: eeb0c9afbe9aa2e46819b064ace8b75b,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: spawnPrefabs.Array.data[12]
       value: 
-      objectReference: {fileID: 32682241498739786, guid: eeb0c9afbe9aa2e46819b064ace8b75b,
+      objectReference: {fileID: 5737836552539623348, guid: 19e6cd9208049534788a81fb828ad2f8,
         type: 3}
     - target: {fileID: 35188446288210322, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
@@ -2699,7 +2704,7 @@ PrefabInstance:
     - target: {fileID: 8789961944103971386, guid: 4485d7c1d735fab4eb7d1d4f27f414ab,
         type: 3}
       propertyPath: NoDelay
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

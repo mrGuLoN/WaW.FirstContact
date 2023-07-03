@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class AbstractGunScripts : NetworkBehaviour
+public class AbstractGunScripts : MonoBehaviour
 {
     public Animator animator;
     public BulletController bulletController;

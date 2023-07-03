@@ -10,21 +10,22 @@ public class BulletController : NetworkBehaviour
     [SerializeField] private LayerMask _damage;
     [SerializeField] private List<AbstractBullet> _sleepingBullet = new ();
     [SerializeField] private List<AbstractBullet> _wakeUpBullet = new();
+    private float timing;
     private Vector3 _previouseposition;
     
 
     void Start()
     {
         if (!isLocalPlayer) return;
-        CmdRespawnBullet();
+        CmdRespawnBullet(firePoint.position);
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdRespawnBullet()
+    private void CmdRespawnBullet(Vector3 position)
     {
         for (int i = 0; i < 5; i++)
         {
-            var bullet = Instantiate(_bullet, null);
+            var bullet = Instantiate(_bullet,position,thisTR.rotation, null);
             NetworkServer.Spawn(bullet.gameObject);
             _sleepingBullet.Add(bullet);
             bullet.TrailOff();
@@ -50,51 +51,57 @@ public class BulletController : NetworkBehaviour
         if (!isLocalPlayer) return;
         if (_sleepingBullet.Count <= 0)
         {
-            CmdRespawnBullet();
+            CmdRespawnBullet(firePoint.position);
         }
-        CmdAddBullet(_sleepingBullet[0],damage,speed,scram);
-        CmdRestartPosition(_sleepingBullet[0]);
+        CmdAddBullet(_sleepingBullet[0],damage,speed,scram, firePoint.position);
+        CmdRestartPosition(_sleepingBullet[0], firePoint.position);
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdAddBullet(AbstractBullet bullet,float damage, float speed, float scram)
+    private void CmdAddBullet(AbstractBullet bullet,float damage, float speed, float scram, Vector3 position)
     {
         _wakeUpBullet.Add(bullet);
         _sleepingBullet.Remove(bullet);
         bullet.damage = damage;
         bullet.speed = speed;
-        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.position = position;
         bullet.thisTR.forward = thisTR.forward +
                                 new Vector3(Random.Range(-1 * scram, scram), 0, Random.Range(-1 * scram, scram));
-        RpcAddBullet(bullet, damage,  speed,  scram);
+        RpcAddBullet(bullet, damage,  speed,  scram,position);
     }
 
     [ClientRpc]
-    private void RpcAddBullet(AbstractBullet bullet,float damage, float speed, float scram)
+    private void RpcAddBullet(AbstractBullet bullet,float damage, float speed, float scram,Vector3 position)
     {
         _wakeUpBullet.Add(bullet);
         _sleepingBullet.Remove(bullet);
         bullet.damage = damage;
         bullet.speed = speed;
-        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.position = position;
         bullet.thisTR.forward = thisTR.forward + new Vector3(Random.Range(-1*scram,scram),0,Random.Range(-1*scram,scram));
     }
 
+    
+
     public void BulletFly()
     {
-        if (!isLocalPlayer || _wakeUpBullet.Count <=0) return;
+        timing = Time.deltaTime;
+        if (_wakeUpBullet.Count <=0) return;
         for (int i = 0; i < _wakeUpBullet.Count; i++)
         {
-            CmdTransformBullet(_wakeUpBullet[i]);
+            CmdTransformBullet(_wakeUpBullet[i], timing);
         }
         
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdTransformBullet(AbstractBullet bullet)
+    private void CmdTransformBullet(AbstractBullet bullet, float timing)
     {
+        
         _previouseposition = bullet.thisTR.position;
-        bullet.thisTR.position += bullet.thisTR.forward * bullet.speed * Time.deltaTime;
+        if (isServer)
+        bullet.thisTR.position += bullet.thisTR.forward * bullet.speed * timing;
+       
         CmdCheckWallEnemy(bullet, _previouseposition);
     }
 
@@ -111,7 +118,7 @@ public class BulletController : NetworkBehaviour
             bullet.TrailOff();
             RpcReworkData(bullet);
             newPosition = hit.point;
-            RpcTransformBullet(newPosition, bullet);
+            RpcTransformBulletEnd(newPosition, bullet);
             Debug.Log(hit.transform.gameObject);
             AbstractDamageCollider plc;
             if (hit.transform.gameObject.TryGetComponent<AbstractDamageCollider>(out plc))
@@ -122,13 +129,21 @@ public class BulletController : NetworkBehaviour
         else
         {
             newPosition = bullet.thisTR.position;
-            RpcTransformBullet(newPosition, bullet);
+            RpcTransformBullet(bullet,newPosition);
         }
         
     }
 
     [ClientRpc]
-    private void RpcTransformBullet(Vector3 newPosition,AbstractBullet bullet)
+    private void RpcTransformBullet(AbstractBullet bullet, Vector3 newPosition)
+    {
+        bullet.TrailOn();
+        bullet.thisTR.position = newPosition;
+    }
+    
+    
+    [ClientRpc]
+    private void RpcTransformBulletEnd(Vector3 newPosition,AbstractBullet bullet)
     {
         bullet.TrailOn();
         bullet.thisTR.position = newPosition;
@@ -144,17 +159,17 @@ public class BulletController : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    private void CmdRestartPosition(AbstractBullet bullet)
+    private void CmdRestartPosition(AbstractBullet bullet, Vector3 position)
     {
-        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.position = position;
         bullet.thisTR.forward = thisTR.forward;
-        RpcRestartPosition(bullet);
+        RpcRestartPosition(bullet,position);
     }
 
     [ClientRpc]
-    private void RpcRestartPosition(AbstractBullet bullet)
+    private void RpcRestartPosition(AbstractBullet bullet,Vector3 position)
     {
-        bullet.thisTR.position = firePoint.position;
+        bullet.thisTR.position = position;
         bullet.thisTR.forward = thisTR.forward;
     }
     

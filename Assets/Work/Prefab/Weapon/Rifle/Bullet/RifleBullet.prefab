@@ -135,7 +135,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   damage: 10
-  speed: 25
+  speed: 1
   thisTR: {fileID: 4072863049414602816}
   previousePosition: {x: 0, y: 0, z: 0}
   trailRenderer: {fileID: 3924802470540736644}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   target: {fileID: 4072863049414602816}
@@ -188,8 +188,8 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 1
-  bufferResetMultiplier: 3
+  onlySyncOnChange: 0
+  bufferResetMultiplier: 0
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
