@@ -23,7 +23,7 @@ public class BulletController : NetworkBehaviour
     [Command(requiresAuthority = false)]
     private void CmdRespawnBullet(Vector3 position)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 15; i++)
         {
             var bullet = Instantiate(_bullet, position, thisTR.rotation, null);
             NetworkServer.Spawn(bullet.gameObject);
