@@ -15,6 +15,7 @@ public class RifleBullet : AbstractBullet
   
     public override void TrailOn()
     {
+        if (!isClient) return;
         trailRenderer.SetActive(true);
         CmdTrailOn();
     }
@@ -33,6 +34,7 @@ public class RifleBullet : AbstractBullet
    
     public override void TrailOff()
     {
+        if (!isClient) return;
         trailRenderer.SetActive(false);
         CmdTrailOff();
     }
